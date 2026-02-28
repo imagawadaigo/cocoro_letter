@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocoro Letter - あなたらしい言葉で、想いを届ける</title>
+<meta name="description" content="伝えたいのに伝えられない。そんな気持ちを、あなたの言葉で届ける手紙AI。美しい文章ではなく、あなたらしい温度で。">
+<meta property="og:title" content="Cocoro Letter - あなたらしい言葉で、想いを届ける">
+<meta property="og:description" content="伝えたいのに伝えられない。そんな気持ちを、あなたの言葉で届ける手紙AI。">
+<meta property="og:image" content="assets/img/og-image.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/img/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;700&family=Noto+Serif+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&family=Klee+One:wght@400;600&family=Yuji+Syuku&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAFAF7;
+  --warm:#F5F0EA;
+  --peach:#E8D5C4;
+  --terra:#C4956A;
+  --brown:#4A3728;
+  --mbrown:#7A6355;
+  --lbrown:#A89585;
+  --accent:#B8785A;
+  --accent2:#D4A574;
+  --soft:#F0E8DF;
+  --card:#FFFFFF;
+  --shadow:rgba(74,55,40,0.06);
+  --shadow2:rgba(74,55,40,0.12);
+  --txt:#2D1F14;
+  --txt2:#6B5B4E;
+  --txt3:#9B8B7E;
+  --border:#E8E0D6;
+  --coral:#E8927C;
+  --gold:#D4A574;
+  --ppink:#FFF0EB
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(--txt);min-height:100vh;overflow-x:hidden}
+
+/* ===== FIXED HEADER ===== */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(250,250,247,0.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s
+}
+.site-header.scrolled{box-shadow:0 2px 20px var(--shadow2)}
+.header-inner{
+  max-width:960px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;
+}
+.header-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:600;letter-spacing:1px;
+  color:var(--brown);text-decoration:none;
+  display:flex;align-items:center;gap:10px
+}
+.header-logo-mark{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:13px;font-family:'Zen Old Mincho',serif
+}
+.header-nav{display:flex;align-items:center;gap:24px}
+.header-nav a{
+  font-size:12px;color:var(--txt2);text-decoration:none;
+  letter-spacing:0.5px;transition:color .2s;font-weight:400
+}
+.header-nav a:hover{color:var(--accent)}
+.header-cta{
+  padding:8px 20px;background:var(--brown);color:#fff;
+  font-size:11px;font-family:'Zen Maru Gothic',sans-serif;font-weight:500;
+  border:none;border-radius:6px;cursor:pointer;letter-spacing:0.5px;
+  transition:all .2s;text-decoration:none
+}
+.header-cta:hover{background:var(--accent);transform:translateY(-1px)}
+
+/* ===== BODY OFFSET ===== */
+.page-body{padding-top:60px}
+
+/* ===== CONTAINER ===== */
+.c{max-width:640px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
+
+/* ===== HERO ===== */
+.hero{padding:48px 0 0;animation:fadeDown .8s ease-out}
+.hero-kv{
+  position:relative;margin:0 -24px 40px;
+  aspect-ratio:16/7;overflow:hidden;
+  background:var(--warm)
+}
+/* 📸 IMAGE SPOT: Hero Key Visual (1440×630px推奨)
+   手紙を書いているシーン、温かい光のテーブル、手書きの便箋など
+   人物の手元だけ（顔なし）で、ペンを持っている構図が理想 */
+.hero-kv-img{width:100%;height:100%;object-fit:cover}
+
+.hero-overlay{position:absolute;bottom:0;left:0;right:0;padding:20px 18px 14px;background:linear-gradient(transparent,rgba(92,61,46,.55));color:#fff;border-radius:0 0 18px 18px}
+.hero-overlay p{font-family:'Zen Old Mincho',serif;font-size:14px;line-height:1.6;text-shadow:0 1px 3px rgba(0,0,0,.3)}
+
+.hero-intro{
+  text-align:center;padding:0 8px;margin-bottom:40px
+}
+.hero-intro p{
+  font-size:14.5px;color:var(--txt2);line-height:2;
+  font-family:'Shippori Mincho',serif
+}
+.hero-intro p strong{color:var(--brown);font-weight:600}
+
+/* ===== USE CASES ===== */
+.use-section{margin-bottom:48px}
+.section-label{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--lbrown);text-align:center;margin-bottom:20px;
+  font-family:'Cormorant Garamond',serif;font-weight:600
+}
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.use-card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;text-align:center;transition:all .2s
+}
+.use-card:hover{border-color:var(--accent);box-shadow:0 4px 16px var(--shadow)}
+.use-img{width:100%;height:120px;object-fit:cover;display:block}
+.use-label{display:block;padding:12px 12px 14px;font-size:12px;color:var(--txt);font-weight:500;line-height:1.5}
+
+/* ===== HOW IT WORKS ===== */
+.how-section{margin-bottom:48px}
+.how-visual{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:4px;padding:0 8px
+}
+.how-step{flex:1;text-align:center;position:relative}
+.how-step::after{
+  content:'';position:absolute;right:-2px;top:22px;
+  width:20px;height:1px;background:var(--peach)
+}
+.how-step:last-child::after{display:none}
+.how-num{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--warm);border:1.5px solid var(--peach);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 10px;overflow:hidden
+}
+.how-img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.how-text{font-size:11px;color:var(--txt2);line-height:1.5}
+
+/* ===== FEATURES ===== */
+.feat-section{margin-bottom:48px}
+.feat-row{
+  display:flex;gap:16px;margin-bottom:16px;
+  align-items:stretch
+}
+.feat-card{
+  flex:1;background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:24px 20px;
+  transition:all .2s
+}
+.feat-card:hover{border-color:var(--accent);box-shadow:0 4px 16px var(--shadow)}
+.feat-card h3{
+  font-size:13px;color:var(--brown);font-weight:600;
+  margin-bottom:8px;line-height:1.5
+}
+.feat-card p{font-size:12px;color:var(--txt2);line-height:1.8}
+.feat-img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:14px;display:block}
+
+/* CTA image */
+.cta-img{width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:20px;display:block}
+
+/* ===== TESTIMONIAL / QUOTE ===== */
+.quote-section{
+  margin-bottom:48px;padding:36px 28px;
+  background:var(--warm);border-radius:16px;
+  text-align:center;position:relative
+}
+.quote-section::before{
+  content:'"';position:absolute;top:12px;left:24px;
+  font-family:'Cormorant Garamond',serif;font-size:60px;
+  color:var(--peach);line-height:1
+}
+.quote-text{
+  font-family:'Shippori Mincho',serif;
+  font-size:14px;color:var(--brown);line-height:2;
+  font-style:italic;margin-bottom:12px
+}
+.quote-attr{font-size:11px;color:var(--txt3)}
+
+/* 📸 IMAGE SPOT: Quote背景画像（オプション）
+   手書きの便箋のクローズアップ、または温かみのあるテクスチャ */
+
+/* ===== CTA SECTION ===== */
+.cta-section{
+  text-align:center;margin-bottom:48px;padding:40px 20px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px
+}
+.cta-section h2{
+  font-family:'Zen Old Mincho',serif;font-size:20px;
+  color:var(--brown);margin-bottom:12px;letter-spacing:1px
+}
+.cta-section p{
+  font-size:13px;color:var(--txt2);margin-bottom:24px;line-height:1.8
+}
+.btn-start{
+  display:inline-block;padding:16px 48px;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:14px;font-weight:500;
+  background:var(--brown);color:#fff;border:none;border-radius:8px;
+  cursor:pointer;letter-spacing:1px;transition:all .3s;
+  box-shadow:0 4px 16px rgba(74,55,40,.15)
+}
+.btn-start:hover{
+  background:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(74,55,40,.25)
+}
+
+/* ===== FOOTER ===== */
+.site-footer{
+  border-top:1px solid var(--border);padding:36px 28px;
+  text-align:center;background:var(--warm)
+}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;font-size:16px;
+  color:var(--brown);letter-spacing:1px;margin-bottom:12px
+}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:16px}
+.footer-links a{font-size:11px;color:var(--txt3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+.footer-copy{font-size:10px;color:var(--txt3)}
+
+/* ===== FORM (INHERITED) ===== */
+.form-s{display:none}.form-s.active{display:block;animation:fadeUp .5s ease-out}
+.prog{display:flex;align-items:center;gap:6px;padding:20px 0 24px;justify-content:center}
+.prog-s{flex:0 0 auto;width:40px;height:3px;background:var(--peach);border-radius:2px;transition:all .3s}
+.prog-s.active{background:var(--accent);width:52px}.prog-s.done{background:var(--accent2)}
+.prog-l{font-size:11px;color:var(--lbrown)}
+
+.step{display:none}.step.active{display:block;animation:fadeUp .5s ease-out}
+.sh{text-align:center;margin-bottom:28px}
+.sn{font-size:10px;letter-spacing:3px;color:var(--accent);margin-bottom:8px;font-weight:600;text-transform:uppercase;font-family:'Cormorant Garamond',serif}
+.st{font-family:'Zen Old Mincho',serif;font-size:22px;font-weight:700;color:var(--brown);letter-spacing:1px;margin-bottom:8px;line-height:1.4}
+.sd{font-size:13px;color:var(--txt2);line-height:1.7}
+
+.rel-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
+.rel{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;transition:all .25s}
+.rel:hover{border-color:var(--accent)}
+.rel.sel{border-color:var(--accent);background:var(--soft);box-shadow:0 2px 10px var(--shadow)}
+.rel-i{font-size:22px;display:block;margin-bottom:6px}
+.rel-l{font-size:11px;color:var(--mbrown);font-weight:500}
+
+.fg{margin-bottom:20px}
+.fl{display:block;font-size:12px;font-weight:600;color:var(--brown);margin-bottom:8px}
+.fl .h{display:block;font-weight:400;font-size:11px;color:var(--txt3);margin-top:3px}
+.fi{width:100%;padding:12px 14px;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;color:var(--txt);transition:border .2s;resize:vertical}
+.fi:focus{outline:none;border-color:var(--accent)}
+textarea.fi{min-height:70px;line-height:1.7}
+
+.bg{display:flex;gap:10px;justify-content:center;padding-top:16px}
+.btn{padding:13px 32px;font-family:'Zen Maru Gothic',sans-serif;font-size:13px;border:none;border-radius:8px;cursor:pointer;transition:all .25s;font-weight:500;letter-spacing:0.5px}
+.btn-n{background:var(--brown);color:#fff}
+.btn-n:hover{background:var(--accent);transform:translateY(-1px)}
+.btn-n:disabled{background:var(--peach);cursor:not-allowed;transform:none}
+.btn-b{background:var(--card);color:var(--mbrown);border:1px solid var(--border)}
+.btn-b:hover{border-color:var(--accent)}
+.btn-g{background:var(--brown);color:#fff;padding:15px 36px;font-size:14px}
+.btn-g:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 16px var(--shadow2)}
+
+/* Q blocks */
+.bq{margin-bottom:16px;background:var(--card);border-radius:12px;padding:18px 16px;border:1px solid var(--border)}
+.bq.hid{display:none}
+.bqt{font-size:13px;font-weight:600;color:var(--brown);margin-bottom:10px}
+.bqc{font-size:11px;color:var(--txt3);margin-bottom:8px}
+.bos{display:flex;flex-direction:column;gap:8px}
+.bo{padding:12px 14px;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;font-family:'Zen Maru Gothic',sans-serif;font-size:13px;color:var(--txt);cursor:pointer;transition:all .2s;text-align:left}
+.bo:hover{border-color:var(--accent)}.bo.sel{background:var(--soft);border-color:var(--accent)}
+.bo .os{display:block;font-size:11px;color:var(--txt3);margin-top:3px}
+
+.sps{display:none;background:var(--warm);border-radius:12px;padding:16px;margin-top:16px;border:1px solid var(--peach)}
+.sps.vis{display:block;animation:fadeUp .3s}
+.sps-l{font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:6px;font-weight:600;text-transform:uppercase;font-family:'Cormorant Garamond',serif}
+.sps-t{font-size:12px;color:var(--brown);line-height:1.8;white-space:pre-line}
+
+/* Tags & subtags */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tag{padding:8px 14px;background:var(--card);border:1.5px solid var(--border);border-radius:20px;font-size:12px;color:var(--mbrown);cursor:pointer;transition:all .2s}
+.tag:hover{border-color:var(--accent)}.tag.sel{background:var(--soft);border-color:var(--accent);color:var(--brown)}
+.sub-c{display:none;margin-top:10px;background:var(--warm);border-radius:10px;padding:12px}
+.sub-c.vis{display:block}
+.sub-l{font-size:11px;color:var(--brown);font-weight:500;margin-bottom:8px}
+.subs{display:flex;flex-wrap:wrap;gap:6px}
+.sub{padding:5px 11px;background:var(--card);border:1px solid var(--border);border-radius:14px;font-size:11px;color:var(--mbrown);cursor:pointer;transition:all .2s}
+.sub:hover{border-color:var(--accent)}.sub.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Deepen prompts */
+.dp{display:none;margin-top:6px;padding:10px 12px;background:var(--warm);border-radius:8px;font-size:11px;color:var(--txt2);line-height:1.6}
+.dp.vis{display:block;animation:fadeUp .3s}
+
+/* ===== RESULT ===== */
+.ld{text-align:center;padding:60px 20px}
+.ld-q{font-size:32px;animation:pulse 1.5s ease-in-out infinite}
+.ld-t{font-size:14px;color:var(--txt2);margin-top:14px;line-height:1.8}
+.ld-d::after{content:'...';animation:dots 1.5s steps(4,end) infinite}
+
+.result-top{display:flex;justify-content:flex-start;margin-bottom:16px}
+.result-back{background:none;border:none;font-family:'Zen Maru Gothic',sans-serif;font-size:12px;color:var(--txt3);cursor:pointer;padding:4px 0;transition:color .2s}
+.result-back:hover{color:var(--accent)}
+
+/* Customization */
+.cust{background:var(--card);border-radius:12px;padding:18px 16px;margin-bottom:20px;border:1px solid var(--border)}
+.cust-t{font-size:10px;letter-spacing:2px;color:var(--lbrown);margin-bottom:14px;text-transform:uppercase;font-family:'Cormorant Garamond',serif;font-weight:600}
+.cr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cr:last-child{margin-bottom:0}
+.cl{font-size:11px;color:var(--txt2);min-width:40px;font-weight:500}
+.pills{display:flex;gap:5px;flex-wrap:wrap}
+.pill{padding:6px 14px;font-size:11px;font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);border:1px solid var(--border);border-radius:6px;color:var(--mbrown);cursor:pointer;transition:all .2s}
+.pill:hover{border-color:var(--accent)}.pill.act{background:var(--brown);border-color:var(--brown);color:#fff}
+.cdots{display:flex;gap:8px}
+.cdot{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .2s}
+.cdot:hover{transform:scale(1.1)}.cdot.act{border-color:var(--brown);box-shadow:0 2px 8px var(--shadow2)}
+
+/* Letter paper */
+.lc{margin-bottom:16px}
+.lp{border-radius:14px;padding:44px 36px;position:relative;box-shadow:0 4px 24px var(--shadow2);transition:all .3s}
+.lp::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.lp::after{content:'';position:absolute;top:10px;left:10px;right:10px;bottom:10px;border:1px solid;border-radius:6px;pointer-events:none;opacity:.15}
+.lp[data-t="warm"]{background:linear-gradient(180deg,#FFFAF5,#FFF5ED)}.lp[data-t="warm"]::before{background:linear-gradient(90deg,#E8927C,#D4A574)}.lp[data-t="warm"]::after{border-color:#E8927C}
+.lp[data-t="sakura"]{background:linear-gradient(180deg,#FFF5F5,#FFF0F0)}.lp[data-t="sakura"]::before{background:linear-gradient(90deg,#D4849A,#E8B4C8)}.lp[data-t="sakura"]::after{border-color:#D4849A}
+.lp[data-t="forest"]{background:linear-gradient(180deg,#F5F9F5,#F0F5F0)}.lp[data-t="forest"]::before{background:linear-gradient(90deg,#7BA17C,#A4C4A5)}.lp[data-t="forest"]::after{border-color:#7BA17C}
+.lp[data-t="ocean"]{background:linear-gradient(180deg,#F4F8FB,#EDF4F9)}.lp[data-t="ocean"]::before{background:linear-gradient(90deg,#6B9BC3,#8BB8D8)}.lp[data-t="ocean"]::after{border-color:#6B9BC3}
+.lp[data-t="night"]{background:linear-gradient(180deg,#2C2C3A,#232330)}.lp[data-t="night"]::before{background:linear-gradient(90deg,#8B7EC8,#A496D8)}.lp[data-t="night"]::after{border-color:#8B7EC8}
+.lt{font-size:15px;line-height:2.2;white-space:pre-wrap;min-height:200px}
+.lt.f-m{font-family:'Noto Serif JP',serif}.lt.f-k{font-family:'Klee One',cursive}.lt.f-y{font-family:'Yuji Syuku',serif}.lt.f-s{font-family:'Shippori Mincho',serif}
+.lp[data-t="warm"] .lt{color:#3D2B1F}.lp[data-t="sakura"] .lt{color:#5C3344}.lp[data-t="forest"] .lt{color:#2E3D2B}.lp[data-t="ocean"] .lt{color:#2B3D4F}.lp[data-t="night"] .lt{color:#E8E4DF}
+.lp.vt{writing-mode:vertical-rl;min-height:420px;max-height:600px;overflow-x:auto;padding:36px 28px}
+
+.edit-hint{text-align:center;font-size:11px;color:var(--accent);padding:8px;display:none;animation:fadeUp .3s}
+.edit-hint.vis{display:block}
+
+/* Actions */
+.actions{margin-top:16px;margin-bottom:8px}
+.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act-btn{
+  padding:14px 12px;font-family:'Zen Maru Gothic',sans-serif;font-size:12px;
+  border:none;border-radius:8px;cursor:pointer;transition:all .2s;
+  font-weight:500;min-height:50px;display:flex;align-items:center;justify-content:center;
+  letter-spacing:0.3px
+}
+.act-btn:hover{transform:translateY(-1px)}
+.act-primary{background:var(--brown);color:#fff;box-shadow:0 2px 10px var(--shadow2)}
+.act-primary:hover{background:var(--accent)}
+.act-secondary{background:var(--card);color:var(--mbrown);border:1px solid var(--border)}
+.act-secondary:hover{border-color:var(--accent)}
+.act-edit{background:var(--card);color:var(--accent);border:1px solid var(--accent)}
+
+.dl-dd{position:relative}
+.dl-menu{display:none;position:absolute;bottom:100%;left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:6px;margin-bottom:6px;box-shadow:0 4px 20px var(--shadow2);z-index:10}
+.dl-menu.show{display:block;animation:fadeUp .2s}
+.dl-opt{display:block;width:100%;padding:10px;background:none;border:none;font-family:'Zen Maru Gothic',sans-serif;font-size:12px;color:var(--txt);text-align:left;cursor:pointer;border-radius:8px;transition:background .15s}
+.dl-opt:hover{background:var(--warm)}
+.dl-opt span{display:block;font-size:10px;color:var(--txt3);margin-top:2px}
+
+/* Warm feedback */
+.wf{background:var(--warm);border-radius:12px;padding:20px 18px;margin-top:20px;border:1px solid var(--peach)}
+.wf-i{font-size:18px;margin-bottom:8px;display:block;text-align:center}
+.wf-t{font-size:12px;color:var(--brown);line-height:1.8;text-align:center}
+
+.act-new{
+  display:block;width:100%;padding:14px;margin-top:16px;
+  background:none;border:1px solid var(--border);border-radius:8px;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:12px;
+  color:var(--txt3);cursor:pointer;transition:all .2s
+}
+.act-new:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:640px){
+  .c{padding:0 16px 40px}
+  .hero-kv{margin:0 -16px 32px}
+  .hero-kv-overlay{padding:24px 20px 20px}
+  .hero-kv-overlay h1{font-size:20px}
+  .header-inner{padding:12px 16px}
+  .header-nav a:not(.header-cta){display:none}
+  .rel-grid{grid-template-columns:1fr 1fr}
+  .feat-row{flex-direction:column}
+  .lp{padding:32px 24px}
+  .lp.vt{padding:28px 20px}
+  .use-grid{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== FIXED HEADER ===== -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#" class="header-logo">
+      <span class="header-logo-mark"><img src="assets/img/logo-icon.png" alt="Cocoro" width="28" height="28" style="border-radius:50%;object-fit:cover"></span>
+      Cocoro Letter
+    </a>
+    <nav class="header-nav">
+      <a href="#">サービスについて</a>
+      <a href="#">使い方</a>
+      <a href="#" class="header-cta" onclick="startForm();return false">手紙を書く</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-body">
+<div class="c">
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="heroSec">
+
+  <!-- 📸 IMAGE SPOT #1: ヒーローキービジュアル
+       推奨: 手書きの便箋、温かい光のデスク、ペンを持つ手元
+       サイズ: 1440×630px (16:7) -->
+  <div class="hero-kv">
+    <img src="assets/img/hero-kv.png" alt="手紙を書く温かなデスク" class="hero-kv-img">
+    <div class="hero-kv-overlay">
+      <h1>あなたらしい言葉で、<br>想いを届ける。</h1>
+    </div>
+  </div>
+
+  <div class="hero-intro">
+    <p>伝えたいのに、うまく言葉にできない。<br>
+    照れくさくて、つい言いそびれてしまう。<br><br>
+    Cocoro Letterは、<strong>あなたの性格や伝え方のクセ</strong>を理解した上で、<br>
+    「あなたがもし言葉にできたなら、こう書いたであろう手紙」を<br>
+    一緒に作るサービスです。</p>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="use-section">
+    <div class="section-label">Scene</div>
+    <div class="use-grid">
+      <div class="use-card">
+        <img src="assets/img/scene-birthday.png" alt="誕生日・記念日" class="use-img">
+        <span class="use-label">誕生日や記念日に</span>
+      </div>
+      <div class="use-card">
+        <img src="assets/img/scene-thanks.png" alt="日頃の感謝" class="use-img">
+        <span class="use-label">日頃の感謝を<br>伝えたい時に</span>
+      </div>
+      <div class="use-card">
+        <img src="assets/img/scene-unsaid.png" alt="言えないありがとう" class="use-img">
+        <span class="use-label">なかなか言えない<br>「ありがとう」に</span>
+      </div>
+      <div class="use-card">
+        <img src="assets/img/scene-feelings.png" alt="想いを形に" class="use-img">
+        <span class="use-label">大切な人への<br>想いを形に</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-section">
+    <div class="section-label">How It Works</div>
+    <div class="how-visual">
+      <div class="how-step">
+        <div class="how-num"><img src="assets/img/how-choose.png" alt="相手を選ぶ" class="how-img"></div>
+        <div class="how-text">相手を<br>選ぶ</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num"><img src="assets/img/how-style.png" alt="あなたの伝え方" class="how-img"></div>
+        <div class="how-text">あなたの<br>伝え方</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num"><img src="assets/img/how-feelings.png" alt="気持ちとエピソード" class="how-img"></div>
+        <div class="how-text">気持ちと<br>エピソード</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num"><img src="assets/img/how-complete.png" alt="手紙が完成" class="how-img"></div>
+        <div class="how-text">手紙が<br>完成</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="feat-section">
+    <div class="section-label">Features</div>
+    <div class="feat-row">
+      <div class="feat-card">
+        <img src="assets/img/feat-style.png" alt="あなたらしい文体" class="feat-img">
+        <h3>あなたらしい文体で</h3>
+        <p>美しい文章ではなく、あなたの人間性が滲む言葉で。不器用でも、照れ屋でも、その人らしさが最大の価値。</p>
+      </div>
+      <div class="feat-card">
+        <img src="assets/img/feat-design.png" alt="便箋デザイン" class="feat-img">
+        <h3>便箋のようなデザイン</h3>
+        <p>書体・色・縦書き横書きを自由に選んで、心のこもった一通に仕上がります。</p>
+      </div>
+    </div>
+    <div class="feat-row">
+      <div class="feat-card">
+        <h3>画像やPDFで保存</h3>
+        <p>完成した手紙は画像またはPDFでダウンロード。印刷して手渡すこともできます。</p>
+      </div>
+      <div class="feat-card">
+        <h3>LINEやSNSで送れる</h3>
+        <p>ワンタップでLINEやSNSにシェア。デジタルでも気持ちはちゃんと届きます。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE / TESTIMONIAL -->
+  <div class="quote-section" style="background-image:url('assets/img/texture-washi.png');background-size:cover">
+    <p class="quote-text">美しい文章を書くことが目的ではない。<br>あなたの気持ちに正直になること。<br>それが、いちばん届く手紙になる。</p>
+    <p class="quote-attr">— Cocoro Letter</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <img src="assets/img/cta-envelope.png" alt="手紙を届ける" class="cta-img">
+    <h2>さあ、想いを届けよう。</h2>
+    <p>所要時間は約3分。<br>質問に答えていくだけで、あなたらしい手紙が完成します。</p>
+    <button class="btn-start" onclick="startForm()">手紙を書き始める</button>
+  </div>
+
+</section>
+
+<!-- ===== FORM ===== -->
+<div class="form-s" id="formSec">
+<div class="prog"><span class="prog-l">1</span><div class="prog-s active" id="p1"></div><div class="prog-s" id="p2"></div><div class="prog-s" id="p3"></div><div class="prog-s" id="p4"></div><div class="prog-s" id="p5"></div><span class="prog-l">✉️</span></div>
+
+<!-- S1: Relationship -->
+<div class="step active" id="s1">
+<div class="sh"><div class="sn">STEP 01</div><h2 class="st">誰に届けますか？</h2><p class="sd">手紙を届けたい相手との関係を教えてください</p></div>
+<div class="rel-grid">
+<div class="rel" data-r="恋人・パートナー" onclick="selRel(this)"><span class="rel-i">💑</span><span class="rel-l">恋人・パートナー</span></div>
+<div class="rel" data-r="家族（親）" onclick="selRel(this)"><span class="rel-i">👨‍👩‍👧</span><span class="rel-l">家族（親）</span></div>
+<div class="rel" data-r="兄弟・姉妹" onclick="selRel(this)"><span class="rel-i">👫</span><span class="rel-l">兄弟・姉妹</span></div>
+<div class="rel" data-r="友人" onclick="selRel(this)"><span class="rel-i">🤝</span><span class="rel-l">友人</span></div>
+<div class="rel" data-r="職場の人" onclick="selRel(this)"><span class="rel-i">💼</span><span class="rel-l">職場の人</span></div>
+<div class="rel" data-r="恩師・先輩" onclick="selRel(this)"><span class="rel-i">🎓</span><span class="rel-l">恩師・先輩</span></div>
+</div>
+<div class="fg"><label class="fl">あなたのお名前</label><input type="text" class="fi" id="sName" placeholder="例：けんた、パパ"></div>
+<div class="fg"><label class="fl">相手のお名前</label><input type="text" class="fi" id="rName" placeholder="例：ゆうこ、お母さん"></div>
+<div class="bg"><button class="btn btn-n" id="b1" disabled onclick="go(2)">次へ</button></div>
+</div>
+
+<!-- S2: Sender -->
+<div class="step" id="s2">
+<div class="sh"><div class="sn">STEP 02</div><h2 class="st">あなた自身のことを教えてください</h2><p class="sd">あなたの伝え方を知ることで、<br>「あなたが書いた」と感じてもらえる手紙に。</p></div>
+<div class="bq" id="q1"><div class="bqt">普段、大切な人に気持ちを伝えられていますか？</div><div class="bos">
+<button class="bo" onclick="ans('q1','yes',this)">わりと伝えている<span class="os">思ったことは素直に口にできる</span></button>
+<button class="bo" onclick="ans('q1','sometimes',this)">伝えたいけど、なかなか…<span class="os">タイミングや言葉が見つからない</span></button>
+<button class="bo" onclick="ans('q1','no',this)">ほとんど伝えられていない<span class="os">照れや遠慮で言えずにいる</span></button>
+</div></div>
+<div class="bq hid" id="q2a"><div class="bqt">どんな伝え方が多いですか？</div><div class="bos">
+<button class="bo" onclick="ans('q2a','direct',this)">ストレートに言葉で<span class="os">「ありがとう」「好きだよ」と直接</span></button>
+<button class="bo" onclick="ans('q2a','action',this)">行動で示す<span class="os">何かしてあげたり、そばにいることで</span></button>
+<button class="bo" onclick="ans('q2a','humor',this)">冗談っぽく軽い感じで<span class="os">照れるから笑いに包む</span></button>
+<button class="bo" onclick="ans('q2a','text',this)">文章の方が得意<span class="os">書く方が本音が出る</span></button>
+</div></div>
+<div class="bq hid" id="q2b"><div class="bqt">伝えられない一番の理由は？</div><div class="bos">
+<button class="bo" onclick="ans('q2b','shy',this)">照れくさい<span class="os">面と向かっては無理</span></button>
+<button class="bo" onclick="ans('q2b','words',this)">言葉にすると薄くなる<span class="os">深さが言葉に乗らない</span></button>
+<button class="bo" onclick="ans('q2b','timing',this)">きっかけがない<span class="os">改まるタイミングがない</span></button>
+<button class="bo" onclick="ans('q2b','distance',this)">関係に距離がある<span class="os">今の関係だと難しい</span></button>
+</div></div>
+<div class="bq hid" id="q3"><div class="bqt">周りから、あなたはどんな人だと言われますか？</div><div class="bqc">複数選んでOKです</div><div class="bos" id="q3o">
+<button class="bo" onclick="tgP(this,'warm')">温かい・思いやりがある</button>
+<button class="bo" onclick="tgP(this,'cool')">クール・落ち着いてる</button>
+<button class="bo" onclick="tgP(this,'fun')">明るい・楽しい</button>
+<button class="bo" onclick="tgP(this,'reliable')">しっかりしてる・頼れる</button>
+<button class="bo" onclick="tgP(this,'shy')">シャイ・おとなしい</button>
+<button class="bo" onclick="tgP(this,'passionate')">情熱的・一途</button>
+<button class="bo" onclick="tgP(this,'independent')">マイペース・自由</button>
+<button class="bo" onclick="tgP(this,'logical')">論理的・理知的</button>
+</div><div style="margin-top:8px"><button class="btn btn-n" style="flex:none;padding:9px 16px;font-size:12px" onclick="confirmP()">選んだら次へ →</button></div></div>
+<div class="bq hid" id="q4"><div class="bqt">この手紙は、どんなテンションで？</div><div class="bos">
+<button class="bo" onclick="ans('q4','serious',this)">真剣に伝えたい<span class="os">しっかり届けたい</span></button>
+<button class="bo" onclick="ans('q4','casual',this)">いつもの自分らしく<span class="os">普段の延長で自然に</span></button>
+<button class="bo" onclick="ans('q4','playful',this)">照れ隠ししつつ、ちゃんと<span class="os">軽い中に本音を忍ばせたい</span></button>
+<button class="bo" onclick="ans('q4','surprise',this)">サプライズ感<span class="os">普段見せない一面で</span></button>
+</div></div>
+<div class="sps" id="spSum"><div class="sps-l">Your Type</div><div class="sps-t" id="spTxt"></div></div>
+<div class="bg"><button class="btn btn-b" onclick="go(1)">戻る</button><button class="btn btn-n" id="b2" disabled onclick="go(3)">次へ</button></div>
+</div>
+
+<!-- S3: Recipient -->
+<div class="step" id="s3">
+<div class="sh"><div class="sn">STEP 03</div><h2 class="st">相手はどんな人ですか？</h2><p class="sd">タグを選ぶと詳しい印象も選べます</p></div>
+<div class="fg"><label class="fl">その人の印象に近いものを選んでください</label><div class="tags" id="mTags"></div><div class="sub-c" id="subA"><div class="sub-l" id="subL"></div><div class="subs" id="subT"></div></div></div>
+<div class="fg"><label class="fl">どんな時にその人は嬉しそう？<span class="h">例：手料理を「おいしい！」って食べてもらえた時</span></label><textarea class="fi deep" id="pJoy" data-d="dj" placeholder="その人の笑顔を思い出して"></textarea><div class="dp" id="dj"><strong>💡</strong> その時の表情や仕草で印象に残っていることは？</div></div>
+<div class="bg"><button class="btn btn-b" onclick="go(2)">戻る</button><button class="btn btn-n" onclick="go(4)">次へ</button></div>
+</div>
+
+<!-- S4: Feelings -->
+<div class="step" id="s4">
+<div class="sh"><div class="sn">STEP 04</div><h2 class="st">あなたの気持ちを聞かせてください</h2><p class="sd">うまく書けなくて大丈夫。あなたの言葉がそのまま温度に。</p></div>
+<div class="fg"><label class="fl">好きなところ・尊敬しているところ<span class="h">具体的であるほど届きます</span></label><textarea class="fi deep" id="like" data-d="dl" placeholder="例：疲れてる日でも「おかえり」って笑ってくれる"></textarea><div class="dp" id="dl"><strong>💡</strong> それを感じた瞬間は？あなたはどんな気持ちでしたか？</div></div>
+<div class="fg"><label class="fl">印象に残っているエピソード<span class="h">笑ったこと、助けてもらったこと、何気ない日常でも</span></label><textarea class="fi deep" id="ep" data-d="de" placeholder="例：終電逃した時に迎えに来てくれたこと"></textarea><div class="dp" id="de"><strong>💡</strong> その時の天気、匂い、音…覚えていることは？</div></div>
+<div class="fg"><label class="fl">今、一番伝えたい気持ち</label><textarea class="fi deep" id="feel" data-d="df" placeholder="例：いつも隣にいてくれることがどれだけありがたいか"></textarea><div class="dp" id="df"><strong>💡</strong> なぜ今、伝えたいと思いましたか？</div></div>
+<div class="fg"><label class="fl">これからの二人について<span class="h">感謝だけでなく「こうしていきたい」という想いも</span></label><textarea class="fi" id="future" placeholder="例：もっと自分から「ありがとう」を言えるようになりたい"></textarea></div>
+<div class="bg"><button class="btn btn-b" onclick="go(3)">戻る</button><button class="btn btn-g" onclick="gen()">手紙を届ける ✉️</button></div>
+</div>
+
+<!-- S5: Result -->
+<div class="step" id="s5">
+<div id="ldArea" class="ld"><div class="ld-q">🖊️</div><p class="ld-t">あなたの気持ちを、あなたらしい言葉に<span class="ld-d"></span></p></div>
+
+<div id="ltArea" style="display:none">
+<div class="result-top">
+  <button class="result-back" onclick="go(4)">← 戻って修正する</button>
+</div>
+
+<div class="cust">
+<div class="cust-t">Design</div>
+<div class="cr"><span class="cl">書き方</span><div class="pills"><button class="pill act" data-v="hz" onclick="setD(this)">横書き</button><button class="pill" data-v="vt" onclick="setD(this)">縦書き</button></div></div>
+<div class="cr"><span class="cl">書体</span><div class="pills"><button class="pill act" data-v="f-m" onclick="setF(this)" style="font-family:'Noto Serif JP',serif">明朝</button><button class="pill" data-v="f-k" onclick="setF(this)" style="font-family:'Klee One',cursive">手書き風</button><button class="pill" data-v="f-y" onclick="setF(this)" style="font-family:'Yuji Syuku',serif">教科書体</button><button class="pill" data-v="f-s" onclick="setF(this)" style="font-family:'Shippori Mincho',serif">しっぽり</button></div></div>
+<div class="cr"><span class="cl">色合い</span><div class="cdots"><div class="cdot act" data-t="warm" onclick="setT(this)" style="background:linear-gradient(135deg,#FFFAF5,#E8927C)"></div><div class="cdot" data-t="sakura" onclick="setT(this)" style="background:linear-gradient(135deg,#FFF5F5,#D4849A)"></div><div class="cdot" data-t="forest" onclick="setT(this)" style="background:linear-gradient(135deg,#F5F9F5,#7BA17C)"></div><div class="cdot" data-t="ocean" onclick="setT(this)" style="background:linear-gradient(135deg,#F4F8FB,#6B9BC3)"></div><div class="cdot" data-t="night" onclick="setT(this)" style="background:linear-gradient(135deg,#2C2C3A,#8B7EC8)"></div></div></div>
+</div>
+
+<div class="lc">
+<div class="lp hz" id="lPaper" data-t="warm">
+<div class="lt f-m" id="lText"></div>
+</div>
+</div>
+<div class="edit-hint" id="editHint">✏️ テキストを直接タップして編集できます</div>
+
+<!-- Actions -->
+<div class="actions">
+<div class="actions-grid">
+  <button class="act-btn act-edit" onclick="toggleEdit()">✏️ テキストを編集</button>
+  <button class="act-btn act-primary" onclick="shareLetter()">LINEやSNSに送る</button>
+  <div class="dl-dd">
+    <button class="act-btn act-secondary" onclick="tgDL()">ダウンロード</button>
+    <div class="dl-menu" id="dlMenu">
+      <button class="dl-opt" onclick="dlImg()">🖼️ 画像（PNG）<span>LINE・SNSで送りやすい</span></button>
+      <button class="dl-opt" onclick="dlPDF()">📄 PDF<span>印刷して渡せる</span></button>
+    </div>
+  </div>
+  <button class="act-btn act-secondary" onclick="gen()">書き直す</button>
+</div>
+</div>
+
+<!-- Warm feedback -->
+<div class="wf" id="wf"><span class="wf-i">🌱</span><div class="wf-t" id="wfTxt"></div></div>
+
+<button class="act-new" onclick="reset()">新しい手紙を書く</button>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-logo">Cocoro Letter</div>
+  <div class="footer-links">
+    <a href="#">サービスについて</a>
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">お問い合わせ</a>
+  </div>
+  <p class="footer-copy">&copy; 2025 Cocoro Letter. All rights reserved.</p>
+</footer>
+
+<canvas id="exCv" style="display:none"></canvas>
+<script>
+// Header scroll effect
+window.addEventListener('scroll',()=>{
+  document.getElementById('siteHeader').classList.toggle('scrolled',window.scrollY>10);
+});
+
+const TD={'穏やか':['落ち着いた雰囲気','柔らかい物腰','聞き上手','争いを好まない','マイペース'],'明るい':['元気がいい','笑顔が多い','ポジティブ','場を和ませる','声が大きい'],'真面目':['コツコツ努力する','約束を守る','責任感が強い','几帳面','誠実'],'優しい':['困った人を放っておけない','さりげない気遣い','共感力が高い','人の話をよく聞く','怒らない'],'面白い':['ツッコミが上手い','独特な視点','場を盛り上げる','ユーモアがある','リアクションが大きい'],'頼りになる':['決断力がある','困った時に助けてくれる','知識が豊富','冷静に対処する','包容力がある'],'繊細':['感受性が豊か','細かいことに気づく','芸術的','傷つきやすい面も','心が深い'],'芯が強い':['自分の意見を持ってる','ブレない','粘り強い','信念がある','逆境に強い'],'自由':['束縛を嫌う','発想が独特','好奇心旺盛','行動力がある','型にはまらない'],'情熱的':['好きなことに一直線','熱い想い','全力投球','表現が豊か','一途']};
+let S={rel:'',sn:'',rn:'',traits:[],subTraits:[],pJoy:'',like:'',ep:'',feel:'',future:'',ans:{},personas:[]};
+let cStep=1,cFont='f-m',cTheme='warm',cDir='hz',letter='',letterPrompt='',isEditing=false;
+
+function startForm(){$('heroSec').style.display='none';$('formSec').classList.add('active');scroll0();}
+function $(id){return document.getElementById(id)}
+function scroll0(){window.scrollTo({top:0,behavior:'smooth'})}
+
+// S1
+function selRel(c){document.querySelectorAll('.rel').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');S.rel=c.dataset.r;chk1();}
+function chk1(){$('b1').disabled=!(S.rel&&$('sName').value.trim()&&$('rName').value.trim());}
+$('sName').oninput=chk1;$('rName').oninput=chk1;
+
+// S2
+function ans(qid,val,btn){const q=$(qid);q.querySelectorAll('.bo').forEach(o=>o.classList.remove('sel'));btn.classList.add('sel');S.ans[qid]=val;
+setTimeout(()=>{if(qid==='q1'){if(val==='yes'){shB('q2a');hiB('q2b')}else{shB('q2b');hiB('q2a')}}
+else if(qid==='q2a'||qid==='q2b')shB('q3');
+else if(qid==='q4'){showSum();$('b2').disabled=false;}},200);}
+
+function tgP(btn,v){btn.classList.toggle('sel');if(btn.classList.contains('sel'))S.personas.push(v);else S.personas=S.personas.filter(x=>x!==v);}
+function confirmP(){if(S.personas.length>0)shB('q4');}
+function shB(id){const e=$(id);e.classList.remove('hid');e.style.animation='none';e.offsetHeight;e.style.animation='fadeUp .4s ease-out';setTimeout(()=>e.scrollIntoView({behavior:'smooth',block:'center'}),100);}
+function hiB(id){$(id).classList.add('hid');}
+
+function showSum(){const a=S.ans;let s='';
+if(a.q1==='yes'){const m={direct:'素直に伝えられる',action:'行動で愛情を示す',humor:'笑いに包んで本音を伝える',text:'書く方が本音を出せる'};s+=(m[a.q2a]||'')+'あなた。';}
+else{const m={shy:'照れて伝えられない',words:'言葉にすると薄くなる',timing:'きっかけがない',distance:'距離を感じている'};s+=(m[a.q2b]||'')+'あなた。';}
+const pm={warm:'温かい',cool:'クール',fun:'明るい',reliable:'しっかり者',shy:'シャイ',passionate:'情熱的',independent:'マイペース',logical:'論理的'};
+if(S.personas.length)s+='周りからは「'+S.personas.map(p=>pm[p]).join('・')+'」と見られています。';
+const tm={serious:'真剣に伝える手紙',casual:'自然体の手紙',playful:'照れ隠しの手紙',surprise:'サプライズの手紙'};
+if(a.q4)s+='\n→ '+tm[a.q4]+'を書きます。';
+$('spTxt').textContent=s;$('spSum').classList.add('vis');
+setTimeout(()=>$('spSum').scrollIntoView({behavior:'smooth',block:'center'}),100);}
+
+// S3: Traits
+function initTags(){const c=$('mTags');Object.keys(TD).forEach(t=>{const e=document.createElement('span');e.className='tag';e.textContent=t;e.onclick=()=>selTag(t,e);c.appendChild(e);});}
+initTags();
+let activeMT=null;
+function selTag(t,e){e.classList.toggle('sel');if(e.classList.contains('sel')){if(!S.traits.includes(t))S.traits.push(t);activeMT=t;showSub(t);}else{S.traits=S.traits.filter(x=>x!==t);S.subTraits=S.subTraits.filter(x=>!TD[t].includes(x));if(activeMT===t){$('subA').classList.remove('vis');activeMT=null;}}}
+function showSub(t){$('subL').textContent='「'+t+'」をもう少し具体的に：';const c=$('subT');c.innerHTML='';TD[t].forEach(s=>{const e=document.createElement('span');e.className='sub'+(S.subTraits.includes(s)?' sel':'');e.textContent=s;e.onclick=()=>{e.classList.toggle('sel');if(e.classList.contains('sel')){if(!S.subTraits.includes(s))S.subTraits.push(s);}else S.subTraits=S.subTraits.filter(x=>x!==s);};c.appendChild(e);});const a=$('subA');a.classList.add('vis');a.style.animation='none';a.offsetHeight;a.style.animation='fadeUp .3s';}
+
+// Deepen
+document.querySelectorAll('.deep').forEach(ta=>{let sh=false;ta.oninput=()=>{const d=$(ta.dataset.d),l=ta.value.trim().length;if(l>5&&l<40&&!sh){d.classList.add('vis');sh=true;}if(l>=60)d.classList.remove('vis');};ta.onfocus=()=>{sh=false;};});
+
+// Navigation
+function go(step){save();$('s'+cStep).classList.remove('active');$('s'+step).classList.add('active');for(let i=1;i<=5;i++){const p=$('p'+i);p.classList.remove('active','done');if(i<step)p.classList.add('done');if(i===step)p.classList.add('active');}cStep=step;scroll0();}
+function save(){S.sn=$('sName').value.trim();S.rn=$('rName').value.trim();if($('pJoy'))S.pJoy=$('pJoy').value.trim();if($('like'))S.like=$('like').value.trim();if($('ep'))S.ep=$('ep').value.trim();if($('feel'))S.feel=$('feel').value.trim();if($('future'))S.future=$('future').value.trim();}
+
+// Customization
+function setD(p){document.querySelectorAll('#lPaper').forEach(()=>{});document.querySelectorAll('.cr:first-child .pill').forEach(x=>x.classList.remove('act'));p.classList.add('act');cDir=p.dataset.v;const paper=$('lPaper');paper.classList.remove('hz','vt');paper.classList.add(cDir);}
+function setF(p){document.querySelectorAll('#lPaper').forEach(()=>{});const pills=p.parentElement.querySelectorAll('.pill');pills.forEach(x=>x.classList.remove('act'));p.classList.add('act');const lt=$('lText');lt.classList.remove('f-m','f-k','f-y','f-s');cFont=p.dataset.v;lt.classList.add(cFont);}
+function setT(d){document.querySelectorAll('.cdot').forEach(x=>x.classList.remove('act'));d.classList.add('act');cTheme=d.dataset.t;$('lPaper').dataset.t=cTheme;}
+
+// Edit mode
+function toggleEdit(){const lt=$('lText');if(!isEditing){lt.contentEditable='true';lt.focus();$('editHint').classList.add('vis');document.querySelector('.act-edit').textContent='✏️ 編集を完了';isEditing=true;}else{lt.contentEditable='false';$('editHint').classList.remove('vis');letter=lt.textContent;document.querySelector('.act-edit').textContent='✏️ テキストを編集';isEditing=false;}}
+
+// Share
+function shareLetter(){if(navigator.share){navigator.share({title:'Cocoro Letter',text:letter}).catch(()=>{});}else{navigator.clipboard.writeText(letter).then(()=>{const b=document.querySelector('.act-primary');b.textContent='コピーしました ✓';setTimeout(()=>b.textContent='LINEやSNSに送る',2000);});}}
+
+// Build prompt
+function buildPrompt(){const a=S.ans;
+let sType='bukiyou';
+if(a.q2a==='direct')sType='straight';else if(a.q2a==='humor')sType='humor';else if(a.q2a==='text')sType='writer';
+if(a.q1==='no')sType='bukiyou';if(a.q1==='sometimes'&&(a.q2b==='shy'||a.q2b==='words'))sType='bukiyou';
+
+let tone='自然体';if(a.q4==='serious')tone='真剣';else if(a.q4==='playful')tone='照れ隠し';else if(a.q4==='surprise')tone='サプライズ';
+
+const pm={warm:'温かい',cool:'クール',fun:'明るい',reliable:'しっかり者',shy:'シャイ',passionate:'情熱的',independent:'マイペース',logical:'論理的'};
+const personas=S.personas.map(p=>pm[p]).join('・');
+const allTraits=[...S.traits];if(S.subTraits.length)allTraits.push('（'+S.subTraits.join('、')+'）');
+
+const rules={bukiyou:`【不器用タイプ】文は短め。「…」「、」の間が多い。言いかけてやめる表現。感情を直接言わずエピソードで語る。不格好でいい。照れが滲む。例：「うまく言えないけど…ありがとう。って、これ書くのにだいぶ時間かかった。」`,
+straight:`【ストレートタイプ】飾らない。シンプルで力強い。回りくどくない。短い文で核心を突く。例：「好きだよ。理由なんていらない。いてくれて助かってる。」`,
+humor:`【ユーモアタイプ】軽い語り口で始める。ボケやツッコミを挟む。でも途中か最後でふっと真剣に。笑いの中に本音が一瞬見える。例：「お前の料理マジでうまいんだわ。…冗談抜きで。」`,
+writer:`【文章タイプ】整うが上手すぎにしない。内省的。語りかけの温度がある。例：「こうして書いてみると、普段どれだけ言葉にできてなかったか気づく。」`};
+
+const tones={真剣:'覚悟が見える。ふざけない。でも堅すぎない。感情の重みをそのまま乗せる。',自然体:'普段の会話の延長。手紙っぽくなりすぎない。話しかけてるような文体。',照れ隠し:'軽く入って中盤で真剣に、最後にまた照れる。本音と照れが交互。読む側は照れ隠しの向こうに本気を感じる。',サプライズ:'普段の印象とのギャップを最大化。いつもと違う一面。「この人がこんなこと書くの」が価値。'};
+
+const tn={bukiyou:'不器用タイプ',straight:'ストレートタイプ',humor:'ユーモアタイプ',writer:'文章タイプ'};
+
+let block='';if(a.q2b){const bm={shy:'照れくさい',words:'言葉にすると薄くなる',timing:'きっかけがない',distance:'関係に距離がある'};block=bm[a.q2b]||'';}
+
+return `## 役割
+あなたは「手紙の代筆屋」。美しい手紙を書くのではなく「この人がもし言葉にできたなら、こう書いたであろう手紙」を書く。
+読んだ相手が「この人が書いた」と感じることが最優先。AIが書いた感（整いすぎ・美しすぎ）は最大の失敗。
+
+## 原則
+1. 送り手の人間性・不器用さ・クセがそのまま文体に出ること
+2. 文学的な美しさは目的ではない。人間らしさが目的
+3. 入力を機械的に順番に消化しない。取捨選択し自然に溶け込ませる
+4. 未記入を無理に補完しない。少なければ短くていい
+5. 毎回同じ構成にしない。開始も順序も自由
+
+## 文体：${tn[sType]}
+${rules[sType]}
+
+## トーン：${tone}
+${tones[tone]}
+
+## 禁止事項
+- ポエティックな修辞（「太陽のような存在」等）
+- 「そして」「また」「さらに」の連結
+- 「本当に」「とても」「すごく」の乱用
+- 「〜していきましょう」の先生口調
+- 入力を上から順に消化する構成
+- 全員に同じパターン
+- 未記入情報の創作
+
+## 送り手
+- 名前：${S.sn}
+- 周囲の印象：${personas||'未選択'}
+- 普段：${a.q1==='yes'?'伝えられている':a.q1==='sometimes'?'なかなか伝えられない':'ほとんど伝えられない'}
+${block?'- 理由：'+block:''}
+
+## 相手
+- 名前：${S.rn}
+- 関係：${S.rel}
+- 印象：${allTraits.join('、')||'未選択'}
+- 嬉しい瞬間：${S.pJoy||'未記入'}
+
+## 気持ち
+- 好きなところ：${S.like||'未記入'}
+- エピソード：${S.ep||'未記入'}
+- 伝えたい気持ち：${S.feel||'未記入'}
+- これから：${S.future||'未記入'}
+
+## 出力
+- 手紙形式（呼びかけ→本文→締め→「${S.sn}より」）
+- 300〜600文字（少なければ短く）
+- 本文のみ。説明不要
+
+## チェック
+- ${S.rn}は「${S.sn}が書いた」と感じるか？
+- 整いすぎていないか？
+- 機械的に消化していないか？
+- 読んで嬉しくなるか？`;}
+
+// Generate letter
+async function gen(){save();go(5);$('ldArea').style.display='block';$('ltArea').style.display='none';
+letterPrompt=buildPrompt();
+try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:letterPrompt}]})});const d=await r.json();letter=d.content[0].text;}
+catch(e){letter=sampleLetter();}
+$('lText').textContent=letter;showWF();
+$('ldArea').style.display='none';$('ltArea').style.display='block';$('ltArea').style.animation='fadeUp .6s';}
+
+function sampleLetter(){const a=S.ans,n=S.rn||'あなた';let o='',c='';
+if(a.q4==='playful'){o=n+'へ\n\nこういうの書くの、ちょっと柄じゃないんだけど。\nまあたまにはいいかなって。\n\n';c='\n…って書きすぎたかな。\nでもまあ、たまには許して。\n\n'+S.sn+'より';}
+else if(a.q4==='serious'){o=n+'へ\n\n改まって手紙を書くのは、少し緊張する。\nでも、ずっと伝えたかった。\n\n';c='\n\nこの気持ちが届きますように。\n\n'+S.sn+'より';}
+else{o=n+'へ\n\nふと思い立って、書いてみた。\n\n';c='\n\nこれからもよろしく。\n\n'+S.sn+'より';}
+let b='';if(S.like)b+=S.like+'——そういうところが、好きだ。\n\n';if(S.ep)b+='忘れられないのは、'+S.ep+'のこと。\n\n';if(S.feel)b+='今伝えたいのは——'+S.feel+'\n';if(S.future)b+='\n'+S.future+'\n';
+return o+b+c;}
+
+function showWF(){const s=S.sn||'あなた',r=S.rn||'相手',a=S.ans;let m='';
+if(a.q1==='no'||a.q1==='sometimes')m=s+'さんが、こうして'+r+'さんへの想いを言葉にしようとしていること。それ自体が、とても勇気のあることだと思います。普段なかなか言えない気持ちを形にしたこの手紙は、きっと'+r+'さんの心に届きます。';
+else m=s+'さんの、'+r+'さんへの温かい想いが伝わってきます。普段から伝えられているからこそ、改めて手紙にすることで、日常の言葉とはまた違う深さが届くはずです。';
+$('wfTxt').textContent=m;}
+
+function tgDL(){$('dlMenu').classList.toggle('show');}
+document.addEventListener('click',e=>{if(!e.target.closest('.dl-dd'))$('dlMenu').classList.remove('show');});
+
+function dlImg(){$('dlMenu').classList.remove('show');const cv=$('exCv'),cx=cv.getContext('2d'),isV=cDir==='vt',pad=50,fs=20,lh=2.2;
+const ts={warm:{bg:'#FFFAF5',tx:'#3D2B1F',ac:'#E8927C'},sakura:{bg:'#FFF5F5',tx:'#5C3344',ac:'#D4849A'},forest:{bg:'#F5F9F5',tx:'#2E3D2B',ac:'#7BA17C'},ocean:{bg:'#F4F8FB',tx:'#2B3D4F',ac:'#6B9BC3'},night:{bg:'#2C2C3A',tx:'#E8E4DF',ac:'#8B7EC8'}};
+const t=ts[cTheme]||ts.warm;const lines=[];
+if(isV){const cpc=20;let cl='';for(let i=0;i<letter.length;i++){if(letter[i]==='\n'){lines.push(cl);cl='';}else{cl+=letter[i];if(cl.length>=cpc){lines.push(cl);cl='';}}}if(cl)lines.push(cl);cv.width=pad*2+lines.length*(fs*lh)+40;cv.height=pad*2+cpc*(fs+8)+20;}
+else{const mw=560;letter.split('\n').forEach(p=>{if(!p.trim()){lines.push('');return;}let l='';for(const c of p){if((l+c).length*fs*.55>mw){lines.push(l);l=c;}else l+=c;}if(l)lines.push(l);});cv.width=mw+pad*2+40;cv.height=pad*2+lines.length*fs*lh+40;}
+cx.fillStyle=t.bg;cx.fillRect(0,0,cv.width,cv.height);const g=cx.createLinearGradient(0,0,cv.width,0);g.addColorStop(0,t.ac);g.addColorStop(.5,t.ac+'88');g.addColorStop(1,t.ac);cx.fillStyle=g;cx.fillRect(0,0,cv.width,4);
+cx.strokeStyle=t.ac+'30';cx.lineWidth=1;cx.strokeRect(16,16,cv.width-32,cv.height-32);
+cx.fillStyle=t.tx;cx.font=fs+'px serif';cx.textBaseline='top';
+if(isV){for(let c=0;c<lines.length;c++){const x=cv.width-pad-c*(fs*lh);for(let r=0;r<lines[c].length;r++)cx.fillText(lines[c][r],x,pad+r*(fs+8));}}
+else{for(let i=0;i<lines.length;i++)cx.fillText(lines[i],pad,pad+14+i*fs*lh);}
+const a=document.createElement('a');a.download='cocoro-letter-'+(S.rn||'tegami')+'.png';a.href=cv.toDataURL('image/png');a.click();}
+
+function dlPDF(){$('dlMenu').classList.remove('show');const ts={warm:{bg:'#FFFAF5',tx:'#3D2B1F',ac:'#E8927C'},sakura:{bg:'#FFF5F5',tx:'#5C3344',ac:'#D4849A'},forest:{bg:'#F5F9F5',tx:'#2E3D2B',ac:'#7BA17C'},ocean:{bg:'#F4F8FB',tx:'#2B3D4F',ac:'#6B9BC3'},night:{bg:'#2C2C3A',tx:'#E8E4DF',ac:'#8B7EC8'}};const t=ts[cTheme]||ts.warm;
+const fm={'f-m':"'Noto Serif JP',serif",'f-k':"'Klee One',cursive",'f-y':"'Yuji Syuku',serif",'f-s':"'Shippori Mincho',serif"};
+const w=window.open('','_blank');w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Klee+One&family=Yuji+Syuku&family=Shippori+Mincho&display=swap" rel="stylesheet"><style>@page{size:A5;margin:0}body{margin:0;padding:44px;background:${t.bg};color:${t.tx};font-family:${fm[cFont]};font-size:15px;line-height:2;${cDir==='vt'?'writing-mode:vertical-rl;':''}min-height:100vh;box-sizing:border-box;position:relative}body::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,${t.ac},${t.ac}88,${t.ac})}body::after{content:'';position:absolute;top:14px;left:14px;right:14px;bottom:14px;border:1px solid ${t.ac}30;pointer-events:none}.t{white-space:pre-wrap}</style></head><body><div class="t">${letter}</div></body></html>`);w.document.close();setTimeout(()=>w.print(),1000);}
+
+function reset(){S={rel:'',sn:'',rn:'',traits:[],subTraits:[],pJoy:'',like:'',ep:'',feel:'',future:'',ans:{},personas:[]};letter='';letterPrompt='';isEditing=false;
+document.querySelectorAll('.rel,.bo,.tag,.sub').forEach(x=>x.classList.remove('sel'));document.querySelectorAll('.fi').forEach(i=>i.value='');document.querySelectorAll('.dp').forEach(d=>d.classList.remove('vis'));
+['q2a','q2b','q3','q4'].forEach(id=>$(id).classList.add('hid'));$('spSum').classList.remove('vis');$('subA').classList.remove('vis');
+$('mTags').innerHTML='';initTags();$('b1').disabled=true;$('b2').disabled=true;
+if($('lText').contentEditable==='true'){$('lText').contentEditable='false';$('editHint').classList.remove('vis');}
+$('heroSec').style.display='';$('formSec').classList.remove('active');
+go(1);}
+</script>
+</body>
+</html>
