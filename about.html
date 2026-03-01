@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cocoro Letterについて - あなたらしい言葉で、想いを届ける</title>
+<meta name="description" content="Cocoro Letterは、あなたの性格や伝え方のクセを理解し、「あなたらしい温度」で想いを届ける手紙AIサービスです。">
+<meta property="og:title" content="Cocoro Letterについて">
+<meta property="og:description" content="美しい文章ではなく、あなたらしい温度で。AIの力を借りて、大切な人に想いを届ける手紙サービス。">
+<meta property="og:image" content="css/img/og-image.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="css/img/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;700&family=Noto+Serif+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAFAF7;
+  --warm:#F5F0EA;
+  --peach:#E8D5C4;
+  --terra:#C4956A;
+  --brown:#4A3728;
+  --mbrown:#7A6355;
+  --lbrown:#A89585;
+  --accent:#B8785A;
+  --accent2:#D4A574;
+  --soft:#F0E8DF;
+  --card:#FFFFFF;
+  --shadow:rgba(74,55,40,0.06);
+  --shadow2:rgba(74,55,40,0.12);
+  --txt:#2D1F14;
+  --txt2:#6B5B4E;
+  --txt3:#9B8B7E;
+  --border:#E8E0D6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(--txt);min-height:100vh;overflow-x:hidden}
+
+/* ===== FIXED HEADER ===== */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(250,250,247,0.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .3s
+}
+.site-header.scrolled{box-shadow:0 2px 20px var(--shadow2)}
+.header-inner{
+  max-width:960px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;
+}
+.header-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:600;letter-spacing:1px;
+  color:var(--brown);text-decoration:none;
+  display:flex;align-items:center;gap:10px
+}
+.header-logo-mark{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+}
+.header-nav{display:flex;align-items:center;gap:24px}
+.header-nav a{
+  font-size:12px;color:var(--txt2);text-decoration:none;
+  letter-spacing:0.5px;transition:color .2s;font-weight:400
+}
+.header-nav a:hover{color:var(--accent)}
+.header-nav a.current{color:var(--accent);font-weight:500}
+.header-cta{
+  padding:8px 20px;background:var(--brown);color:#fff;
+  font-size:11px;font-family:'Zen Maru Gothic',sans-serif;font-weight:500;
+  border:none;border-radius:6px;cursor:pointer;letter-spacing:0.5px;
+  transition:all .2s;text-decoration:none
+}
+.header-cta:hover{background:var(--accent);transform:translateY(-1px)}
+
+/* ===== BODY ===== */
+.page-body{padding-top:60px}
+.c{max-width:640px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
+
+/* ===== ABOUT HERO ===== */
+.about-hero{
+  padding:48px 0 0;
+  animation:fadeDown .8s ease-out
+}
+.about-hero-kv{
+  position:relative;margin:0 -24px 40px;
+  aspect-ratio:16/7;overflow:hidden;
+  border-radius:0;
+  background:var(--warm)
+}
+.about-hero-kv img{width:100%;height:100%;object-fit:cover}
+.about-hero-kv-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:28px 24px 20px;
+  background:linear-gradient(transparent,rgba(74,55,40,.5))
+}
+.about-hero-kv-overlay h1{
+  font-family:'Zen Old Mincho',serif;
+  font-size:22px;font-weight:700;color:#fff;
+  letter-spacing:2px;line-height:1.5;
+  text-shadow:0 1px 4px rgba(0,0,0,.25)
+}
+.about-hero-kv-overlay h1 span{
+  display:block;font-size:11px;font-weight:400;
+  font-family:'Cormorant Garamond',serif;
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:6px;opacity:.85
+}
+
+/* ===== INTRO ===== */
+.about-intro{
+  text-align:center;padding:0 8px;margin-bottom:48px
+}
+.about-intro p{
+  font-size:14.5px;color:var(--txt2);line-height:2.2;
+  font-family:'Shippori Mincho',serif
+}
+.about-intro p strong{color:var(--brown);font-weight:600}
+
+/* ===== CONCEPT SECTION ===== */
+.section-label{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--lbrown);text-align:center;margin-bottom:24px;
+  font-family:'Cormorant Garamond',serif;font-weight:600
+}
+.concept-section{margin-bottom:48px}
+.concept-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;
+  margin-bottom:20px;transition:all .2s
+}
+.concept-card:hover{border-color:var(--accent);box-shadow:0 4px 16px var(--shadow)}
+.concept-card:last-child{margin-bottom:0}
+.concept-img{width:100%;height:200px;object-fit:cover;display:block}
+.concept-body{padding:24px 22px 28px}
+.concept-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:11px;letter-spacing:2px;color:var(--accent);
+  font-weight:600;margin-bottom:8px
+}
+.concept-body h3{
+  font-family:'Zen Old Mincho',serif;
+  font-size:17px;font-weight:700;color:var(--brown);
+  line-height:1.6;margin-bottom:10px;letter-spacing:0.5px
+}
+.concept-body p{
+  font-size:13px;color:var(--txt2);line-height:2;
+  font-family:'Shippori Mincho',serif
+}
+
+/* ===== FAQ SECTION ===== */
+.faq-section{margin-bottom:48px}
+.faq-item{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;margin-bottom:10px;
+  overflow:hidden;transition:all .2s
+}
+.faq-item:last-child{margin-bottom:0}
+.faq-q{
+  padding:18px 20px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;transition:background .2s;
+  -webkit-user-select:none;user-select:none
+}
+.faq-q:hover{background:var(--warm)}
+.faq-q h3{
+  font-size:13.5px;font-weight:500;color:var(--brown);
+  line-height:1.6;flex:1
+}
+.faq-arrow{
+  width:20px;height:20px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--lbrown);
+  transition:transform .3s
+}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease, padding .35s ease
+}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{
+  padding:0 20px 20px;
+  font-size:13px;color:var(--txt2);line-height:2;
+  font-family:'Shippori Mincho',serif;
+  border-top:1px solid var(--border);
+  padding-top:16px
+}
+
+/* ===== INSTAGRAM SECTION ===== */
+.ig-section{margin-bottom:48px}
+.ig-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;
+  transition:all .2s
+}
+.ig-card:hover{border-color:var(--accent);box-shadow:0 4px 16px var(--shadow)}
+.ig-img{width:100%;height:220px;object-fit:cover;object-position:left center;display:block}
+.ig-body{padding:24px 22px 28px;text-align:center}
+.ig-body h3{
+  font-family:'Zen Old Mincho',serif;
+  font-size:16px;color:var(--brown);
+  margin-bottom:8px;letter-spacing:0.5px
+}
+.ig-body p{
+  font-size:12.5px;color:var(--txt2);line-height:1.8;
+  margin-bottom:18px
+}
+.ig-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;
+  background:linear-gradient(135deg,#E8927C,var(--accent),var(--accent2));
+  color:#fff;font-family:'Zen Maru Gothic',sans-serif;
+  font-size:13px;font-weight:500;
+  border:none;border-radius:8px;cursor:pointer;
+  letter-spacing:0.5px;transition:all .3s;
+  text-decoration:none;
+  box-shadow:0 4px 16px rgba(184,120,90,.25)
+}
+.ig-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(184,120,90,.35)
+}
+.ig-btn svg{width:18px;height:18px;fill:currentColor}
+.ig-handle{
+  display:block;font-size:11px;color:var(--txt3);
+  margin-top:10px
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section{
+  text-align:center;margin-bottom:48px;padding:40px 20px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px
+}
+.cta-img{width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:20px;display:block}
+.cta-section h2{
+  font-family:'Zen Old Mincho',serif;font-size:20px;
+  color:var(--brown);margin-bottom:12px;letter-spacing:1px
+}
+.cta-section p{
+  font-size:13px;color:var(--txt2);margin-bottom:24px;line-height:1.8
+}
+.btn-start{
+  display:inline-block;padding:16px 48px;
+  font-family:'Zen Maru Gothic',sans-serif;font-size:14px;font-weight:500;
+  background:var(--brown);color:#fff;border:none;border-radius:8px;
+  cursor:pointer;letter-spacing:1px;transition:all .3s;
+  box-shadow:0 4px 16px rgba(74,55,40,.15);text-decoration:none
+}
+.btn-start:hover{
+  background:var(--accent);
+  transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(74,55,40,.25)
+}
+
+/* ===== FOOTER ===== */
+.site-footer{
+  border-top:1px solid var(--border);padding:36px 28px;
+  text-align:center;background:var(--warm)
+}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;font-size:16px;
+  color:var(--brown);letter-spacing:1px;margin-bottom:12px
+}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:16px}
+.footer-links a{font-size:11px;color:var(--txt3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+.footer-copy{font-size:10px;color:var(--txt3)}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ===== SCROLL ANIMATION ===== */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:640px){
+  .c{padding:0 16px 40px}
+  .about-hero-kv{margin:0 -16px 32px}
+  .about-hero-kv-overlay{padding:20px 16px 16px}
+  .about-hero-kv-overlay h1{font-size:18px}
+  .header-inner{padding:12px 16px}
+  .header-nav a:not(.header-cta){display:none}
+  .concept-img{height:160px}
+  .ig-img{height:180px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== FIXED HEADER ===== -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="header-logo">
+      <span class="header-logo-mark"><img src="css/img/logo-icon.png" alt="Cocoro" width="28" height="28" style="border-radius:50%;object-fit:cover"></span>
+      Cocoro Letter
+    </a>
+    <nav class="header-nav">
+      <a href="about.html" class="current">サービスについて</a>
+      <a href="index.html">使い方</a>
+      <a href="index.html" class="header-cta">手紙を書く</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-body">
+<div class="c">
+
+<!-- ===== ABOUT HERO ===== -->
+<section class="about-hero">
+  <div class="about-hero-kv">
+    <img src="css/img/about-hero.png" alt="心を込めた手紙">
+    <div class="about-hero-kv-overlay">
+      <h1><span>About</span>Cocoro Letterについて</h1>
+    </div>
+  </div>
+
+  <div class="about-intro">
+    <p>伝えたい気持ちはある。<br>
+    でも、うまく言葉にできない。<br><br>
+    Cocoro Letterは、そんなあなたに代わって<br>
+    <strong>「あなたらしい言葉」</strong>で手紙を届ける<br>
+    AIレターサービスです。</p>
+  </div>
+</section>
+
+<!-- ===== CONCEPT ===== -->
+<section class="concept-section fade-in">
+  <div class="section-label">Concept</div>
+
+  <!-- Concept 1 -->
+  <div class="concept-card">
+    <img src="css/img/feat-style.png" alt="あなたらしい温度で" class="concept-img">
+    <div class="concept-body">
+      <div class="concept-num">01</div>
+      <h3>美しい文章ではなく、<br>あなたらしい温度で</h3>
+      <p>Cocoro Letterが目指すのは、整った美文ではありません。<br>
+      不器用でも、照れくさくても、言葉に詰まっても——<br>
+      その人らしさこそが、いちばん届く手紙になる。<br>
+      そう信じて作りました。</p>
+    </div>
+  </div>
+
+  <!-- Concept 2 -->
+  <div class="concept-card">
+    <img src="css/img/about-profiling.png" alt="あなたの性格を理解する" class="concept-img">
+    <div class="concept-body">
+      <div class="concept-num">02</div>
+      <h3>あなたの性格と伝え方を<br>理解してから書く</h3>
+      <p>照れ屋さんには照れ屋さんの、<br>
+      ストレートな人にはストレートな人の言葉があります。<br>
+      いくつかの質問を通じてあなたの「伝え方のクセ」を理解し、<br>
+      読んだ相手が「この人が書いた」と感じる文体で手紙を生成します。</p>
+    </div>
+  </div>
+
+  <!-- Concept 3 -->
+  <div class="concept-card">
+    <img src="css/img/feat-design.png" alt="手紙という形に" class="concept-img">
+    <div class="concept-body">
+      <div class="concept-num">03</div>
+      <h3>手紙という形に、<br>想いを乗せて届ける</h3>
+      <p>完成した手紙は、便箋のような美しいデザインで表示。<br>
+      書体や色合いも自由に選べます。<br>
+      画像やPDFで保存したり、LINEやSNSで送ることも。<br>
+      デジタルでも、気持ちはちゃんと届きます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq-section fade-in">
+  <div class="section-label">FAQ</div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>無料で使えますか？</h3>
+      <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a"><div class="faq-a-inner">
+      はい、現在は無料でご利用いただけます。手紙の生成にはAI（APIキー）を使用しますが、サービス自体のご利用に料金はかかりません。
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>AIが書いた文章だとバレませんか？</h3>
+      <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a"><div class="faq-a-inner">
+      Cocoro Letterは、あなたの性格や話し方のクセを反映した文体で手紙を生成します。「整いすぎない」自然な言葉遣いを大切にしているため、読んだ相手が「この人が書いたんだな」と感じてもらえることを目指しています。もちろん、生成後にご自身で自由に編集もできます。
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>どんな関係の相手にも使えますか？</h3>
+      <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a"><div class="faq-a-inner">
+      恋人・パートナー、家族（親）、兄弟姉妹、友人、職場の人、恩師・先輩など、さまざまな関係の方への手紙に対応しています。関係性に合わせた距離感と言葉遣いで手紙を生成します。
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>入力した内容は安全ですか？</h3>
+      <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a"><div class="faq-a-inner">
+      入力された情報はお使いのブラウザ上でのみ処理され、サーバーには保存されません。手紙の生成はAI APIを通じて行われますが、Cocoro Letter側でデータを保管・蓄積することはありません。
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>手紙の内容は保存されますか？</h3>
+      <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a"><div class="faq-a-inner">
+      現在のバージョンでは、手紙の自動保存機能はありません。生成した手紙は画像（PNG）やPDFでダウンロードして保存してください。今後、保存・履歴機能の追加を予定しています。
+    </div></div>
+  </div>
+</section>
+
+<!-- ===== INSTAGRAM ===== -->
+<section class="ig-section fade-in">
+  <div class="section-label">Follow Us</div>
+
+  <div class="ig-card">
+    <img src="css/img/ig-banner.png" alt="Instagramで手紙のある暮らしを" class="ig-img">
+    <div class="ig-body">
+      <h3>手紙のある暮らしを、<br>Instagramでも。</h3>
+      <p>便箋デザインのギャラリーや、<br>
+      想いを届けるヒントを発信しています。</p>
+      <a href="#" class="ig-btn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagramをフォロー
+      </a>
+      <span class="ig-handle">@cocoro_letter</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section fade-in">
+  <img src="css/img/cta-envelope.png" alt="手紙を届ける" class="cta-img">
+  <h2>さあ、想いを届けよう。</h2>
+  <p>所要時間は約3分。<br>質問に答えていくだけで、あなたらしい手紙が完成します。</p>
+  <a href="index.html" class="btn-start">手紙を書き始める</a>
+</section>
+
+</div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-logo">Cocoro Letter</div>
+  <div class="footer-links">
+    <a href="about.html">サービスについて</a>
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">お問い合わせ</a>
+  </div>
+  <p class="footer-copy">&copy; 2025 Cocoro Letter. All rights reserved.</p>
+</footer>
+
+<script>
+// Header scroll effect
+window.addEventListener('scroll',()=>{
+  document.getElementById('siteHeader').classList.toggle('scrolled',window.scrollY>10);
+});
+
+// FAQ accordion
+function toggleFaq(el){
+  const item=el.parentElement;
+  const wasOpen=item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  // Toggle clicked
+  if(!wasOpen)item.classList.add('open');
+}
+
+// Scroll fade-in
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
