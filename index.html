@@ -92,9 +92,6 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(
   aspect-ratio:16/7;overflow:hidden;
   background:var(--warm)
 }
-/* 📸 IMAGE SPOT: Hero Key Visual (1440×630px推奨)
-   手紙を書いているシーン、温かい光のテーブル、手書きの便箋など
-   人物の手元だけ（顔なし）で、ペンを持っている構図が理想 */
 .hero-kv-img{width:100%;height:100%;object-fit:cover}
 
 .hero-overlay{position:absolute;bottom:0;left:0;right:0;padding:20px 18px 14px;background:linear-gradient(transparent,rgba(92,61,46,.55));color:#fff;border-radius:0 0 18px 18px}
@@ -186,9 +183,6 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(
 }
 .quote-attr{font-size:11px;color:var(--txt3)}
 
-/* 📸 IMAGE SPOT: Quote背景画像（オプション）
-   手書きの便箋のクローズアップ、または温かみのあるテクスチャ */
-
 /* ===== CTA SECTION ===== */
 .cta-section{
   text-align:center;margin-bottom:48px;padding:40px 20px;
@@ -246,7 +240,8 @@ body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(
 .rel{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:16px 8px;text-align:center;cursor:pointer;transition:all .25s}
 .rel:hover{border-color:var(--accent)}
 .rel.sel{border-color:var(--accent);background:var(--soft);box-shadow:0 2px 10px var(--shadow)}
-.rel-i{font-size:22px;display:block;margin-bottom:6px}
+/* ===== RELATIONSHIP ICON IMAGES (replaces emoji) ===== */
+.rel-img{width:48px;height:48px;object-fit:contain;display:block;margin:0 auto 6px;border-radius:8px}
 .rel-l{font-size:11px;color:var(--mbrown);font-weight:500}
 
 .fg{margin-bottom:20px}
@@ -418,9 +413,6 @@ textarea.fi{min-height:70px;line-height:1.7}
 <!-- ===== HERO ===== -->
 <section class="hero" id="heroSec">
 
-  <!-- 📸 IMAGE SPOT #1: ヒーローキービジュアル
-       推奨: 手書きの便箋、温かい光のデスク、ペンを持つ手元
-       サイズ: 1440×630px (16:7) -->
   <div class="hero-kv">
     <img src="css/img/hero-kv.png" alt="手紙を書く温かなデスク" class="hero-kv-img">
     <div class="hero-kv-overlay">
@@ -529,16 +521,16 @@ textarea.fi{min-height:70px;line-height:1.7}
 <div class="form-s" id="formSec">
 <div class="prog"><span class="prog-l">1</span><div class="prog-s active" id="p1"></div><div class="prog-s" id="p2"></div><div class="prog-s" id="p3"></div><div class="prog-s" id="p4"></div><div class="prog-s" id="p5"></div><span class="prog-l">✉️</span></div>
 
-<!-- S1: Relationship -->
+<!-- S1: Relationship — UPDATED: emoji → images -->
 <div class="step active" id="s1">
 <div class="sh"><div class="sn">STEP 01</div><h2 class="st">誰に届けますか？</h2><p class="sd">手紙を届けたい相手との関係を教えてください</p></div>
 <div class="rel-grid">
-<div class="rel" data-r="恋人・パートナー" onclick="selRel(this)"><span class="rel-i">💑</span><span class="rel-l">恋人・パートナー</span></div>
-<div class="rel" data-r="家族（親）" onclick="selRel(this)"><span class="rel-i">👨‍👩‍👧</span><span class="rel-l">家族（親）</span></div>
-<div class="rel" data-r="兄弟・姉妹" onclick="selRel(this)"><span class="rel-i">👫</span><span class="rel-l">兄弟・姉妹</span></div>
-<div class="rel" data-r="友人" onclick="selRel(this)"><span class="rel-i">🤝</span><span class="rel-l">友人</span></div>
-<div class="rel" data-r="職場の人" onclick="selRel(this)"><span class="rel-i">💼</span><span class="rel-l">職場の人</span></div>
-<div class="rel" data-r="恩師・先輩" onclick="selRel(this)"><span class="rel-i">🎓</span><span class="rel-l">恩師・先輩</span></div>
+<div class="rel" data-r="恋人・パートナー" onclick="selRel(this)"><img src="css/img/rel-partner.png" alt="恋人・パートナー" class="rel-img"><span class="rel-l">恋人・パートナー</span></div>
+<div class="rel" data-r="家族（親）" onclick="selRel(this)"><img src="css/img/rel-family.png" alt="家族（親）" class="rel-img"><span class="rel-l">家族（親）</span></div>
+<div class="rel" data-r="兄弟・姉妹" onclick="selRel(this)"><img src="css/img/rel-sibling.png" alt="兄弟・姉妹" class="rel-img"><span class="rel-l">兄弟・姉妹</span></div>
+<div class="rel" data-r="友人" onclick="selRel(this)"><img src="css/img/rel-friend.png" alt="友人" class="rel-img"><span class="rel-l">友人</span></div>
+<div class="rel" data-r="職場の人" onclick="selRel(this)"><img src="css/img/rel-coworker.png" alt="職場の人" class="rel-img"><span class="rel-l">職場の人</span></div>
+<div class="rel" data-r="恩師・先輩" onclick="selRel(this)"><img src="css/img/rel-mentor.png" alt="恩師・先輩" class="rel-img"><span class="rel-l">恩師・先輩</span></div>
 </div>
 <div class="fg"><label class="fl">あなたのお名前</label><input type="text" class="fi" id="sName" placeholder="例：けんた、パパ"></div>
 <div class="fg"><label class="fl">相手のお名前</label><input type="text" class="fi" id="rName" placeholder="例：ゆうこ、お母さん"></div>
