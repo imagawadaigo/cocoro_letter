@@ -802,11 +802,23 @@ ${block?'- 理由：'+block:''}
 - 機械的に消化していないか？
 - 読んで嬉しくなるか？`;}
 
+// GASプロキシURL — デプロイ後にここを書き換える
+const GAS_PROXY_URL = 'YOUR_GAS_DEPLOY_URL';
+
 // Generate letter
 async function gen(){save();go(5);$('ldArea').style.display='block';$('ltArea').style.display='none';
 letterPrompt=buildPrompt();
-try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:letterPrompt}]})});const d=await r.json();letter=d.content[0].text;}
-catch(e){letter=sampleLetter();}
+try{
+  if(!GAS_PROXY_URL||GAS_PROXY_URL==='YOUR_GAS_DEPLOY_URL')throw new Error('proxy not configured');
+  const r=await fetch(GAS_PROXY_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({prompt:letterPrompt})
+  });
+  const d=await r.json();
+  if(d.error)throw new Error(d.error);
+  letter=d.text;
+}catch(e){letter=sampleLetter();}
 $('lText').textContent=letter;showWF();
 $('ldArea').style.display='none';$('ltArea').style.display='block';$('ltArea').style.animation='fadeUp .6s';}
 
