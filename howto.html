@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>使い方 - Cocoro Letter</title>
+<meta name="description" content="Cocoro Letterの使い方。4つのステップで、あなたらしい手紙が約3分で完成します。">
+<link rel="icon" type="image/png" href="css/img/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;700&family=Noto+Serif+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAFAF7;--warm:#F5F0EA;--peach:#E8D5C4;
+  --brown:#4A3728;--mbrown:#7A6355;--lbrown:#A89585;
+  --accent:#B8785A;--accent2:#D4A574;--soft:#F0E8DF;
+  --card:#FFFFFF;--shadow:rgba(74,55,40,0.06);--shadow2:rgba(74,55,40,0.12);
+  --txt:#2D1F14;--txt2:#6B5B4E;--txt3:#9B8B7E;--border:#E8E0D6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(--txt);min-height:100vh;overflow-x:hidden}
+
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,250,247,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+.site-header.scrolled{box-shadow:0 2px 20px var(--shadow2)}
+.header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 28px}
+.header-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:1px;color:var(--brown);text-decoration:none;display:flex;align-items:center;gap:10px}
+.header-logo-mark{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;}
+.header-nav{display:flex;align-items:center;gap:24px}
+.header-nav a{font-size:12px;color:var(--txt2);text-decoration:none;letter-spacing:0.5px;transition:color .2s;font-weight:400}
+.header-nav a:hover{color:var(--accent)}
+.header-nav a.current{color:var(--accent);font-weight:500}
+.header-cta{padding:8px 20px;background:var(--brown);color:#ffffff!important;font-size:11px;font-family:'Zen Maru Gothic',sans-serif;font-weight:600;border:none;border-radius:6px;cursor:pointer;letter-spacing:0.5px;transition:all .2s;text-decoration:none}
+.header-cta:hover{background:var(--accent);transform:translateY(-1px);color:#ffffff!important;}
+
+.page-body{padding-top:60px}
+.c{max-width:640px;margin:0 auto;padding:0 24px 60px}
+
+/* Hero */
+.page-hero{padding:48px 0 0;animation:fadeDown .8s ease-out}
+.page-hero-kv{position:relative;margin:0 -24px 40px;aspect-ratio:16/7;overflow:hidden;background:var(--warm)}
+.page-hero-kv img{width:100%;height:100%;object-fit:cover}
+.page-hero-kv-overlay{position:absolute;bottom:0;left:0;right:0;padding:28px 24px 20px;background:linear-gradient(transparent,rgba(74,55,40,.5))}
+.page-hero-kv-overlay h1{font-family:'Zen Old Mincho',serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:2px;line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,.25)}
+.page-hero-kv-overlay h1 span{display:block;font-size:11px;font-weight:400;font-family:'Cormorant Garamond',serif;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;opacity:.85}
+
+.page-intro{text-align:center;padding:0 8px;margin-bottom:48px}
+.page-intro p{font-size:14.5px;color:var(--txt2);line-height:2.2;font-family:'Shippori Mincho',serif}
+.page-intro p strong{color:var(--brown);font-weight:600}
+
+/* Section label */
+.section-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--lbrown);text-align:center;margin-bottom:24px;font-family:'Cormorant Garamond',serif;font-weight:600}
+
+/* Steps */
+.steps-section{margin-bottom:48px}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;transition:all .2s}
+.step-card:hover{border-color:var(--accent);box-shadow:0 4px 16px var(--shadow)}
+.step-card:last-child{margin-bottom:0}
+.step-img{width:100%;height:180px;object-fit:cover;display:block}
+.step-body{padding:22px 22px 26px}
+.step-num{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:2px;color:var(--accent);font-weight:600;margin-bottom:6px}
+.step-body h3{font-family:'Zen Old Mincho',serif;font-size:17px;font-weight:700;color:var(--brown);line-height:1.5;margin-bottom:10px;letter-spacing:0.5px}
+.step-body p{font-size:13px;color:var(--txt2);line-height:2;font-family:'Shippori Mincho',serif}
+.step-tip{margin-top:12px;padding:10px 14px;background:var(--warm);border-radius:8px;font-size:12px;color:var(--txt2);line-height:1.7;font-family:'Shippori Mincho',serif}
+
+/* Tips */
+.tips-section{margin-bottom:48px}
+.tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tip-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 18px;transition:all .2s}
+.tip-card:hover{border-color:var(--accent);box-shadow:0 4px 16px var(--shadow)}
+.tip-icon{font-size:24px;margin-bottom:10px;display:block}
+.tip-card h3{font-size:13px;color:var(--brown);font-weight:600;margin-bottom:6px;line-height:1.5}
+.tip-card p{font-size:12px;color:var(--txt2);line-height:1.8}
+
+/* CTA */
+.cta-section{text-align:center;margin-bottom:48px;padding:40px 20px;background:var(--card);border:1px solid var(--border);border-radius:16px}
+.cta-section h2{font-family:'Zen Old Mincho',serif;font-size:20px;color:var(--brown);margin-bottom:12px;letter-spacing:1px}
+.cta-section p{font-size:13px;color:var(--txt2);margin-bottom:24px;line-height:1.8}
+.btn-start{display:inline-block;padding:16px 48px;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;font-weight:500;background:var(--brown);color:#fff;border:none;border-radius:8px;cursor:pointer;letter-spacing:1px;transition:all .3s;box-shadow:0 4px 16px rgba(74,55,40,.15);text-decoration:none}
+.btn-start:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 6px 24px rgba(74,55,40,.25)}
+
+/* Footer */
+.site-footer{border-top:1px solid var(--border);padding:36px 28px;text-align:center;background:var(--warm)}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--brown);letter-spacing:1px;margin-bottom:12px}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:16px}
+.footer-links a{font-size:11px;color:var(--txt3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+.footer-copy{font-size:10px;color:var(--txt3)}
+
+/* Animations */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+@media(max-width:640px){
+  .c{padding:0 16px 40px}
+  .page-hero-kv{margin:0 -16px 32px}
+  .header-inner{padding:12px 16px}
+  .header-nav a:not(.header-cta){display:none}
+  .tip-grid{grid-template-columns:1fr}
+  .step-img{height:140px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="header-logo">
+      <span class="header-logo-mark"><img src="css/img/logo-icon.png" alt="Cocoro" width="28" height="28" style="border-radius:50%;object-fit:cover"></span>
+      Cocoro Letter
+    </a>
+    <nav class="header-nav">
+      <a href="about.html">サービスについて</a>
+      <a href="howto.html" class="current">使い方</a>
+      <a href="index.html" class="header-cta">手紙を書く</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-body">
+<div class="c">
+
+<section class="page-hero">
+  <div class="page-hero-kv">
+    <img src="css/img/hero-kv.png" alt="使い方">
+    <div class="page-hero-kv-overlay">
+      <h1><span>How To Use</span>使い方</h1>
+    </div>
+  </div>
+
+  <div class="page-intro">
+    <p>4つのステップに答えるだけで、<br>
+    <strong>約3分</strong>であなたらしい手紙が完成します。<br><br>
+    うまく書けなくて大丈夫。<br>
+    あなたの言葉が、そのまま温度になります。</p>
+  </div>
+</section>
+
+<!-- Steps -->
+<section class="steps-section fade-in">
+  <div class="section-label">Steps</div>
+
+  <div class="step-card">
+    <img src="css/img/how-choose.png" alt="相手を選ぶ" class="step-img">
+    <div class="step-body">
+      <div class="step-num">STEP 01</div>
+      <h3>誰に届けますか？</h3>
+      <p>手紙を届けたい相手との関係を選びます。恋人・家族・友人・職場の人など、関係性に合わせた距離感で文章を生成します。送り手と受け手の名前も入力してください。</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <img src="css/img/how-style.png" alt="あなたの伝え方" class="step-img">
+    <div class="step-body">
+      <div class="step-num">STEP 02</div>
+      <h3>あなた自身のことを教えてください</h3>
+      <p>普段どんなふうに気持ちを伝えているか、周りからどんな人だと思われているかをいくつかの質問に答えながら入力します。ここの回答が、文体や言葉のトーンに直接反映されます。</p>
+      <div class="step-tip">「照れくさい」「なかなか伝えられない」タイプの方でも大丈夫。そのままの自分で答えてください。</div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <img src="css/img/how-feelings.png" alt="相手と気持ち" class="step-img">
+    <div class="step-body">
+      <div class="step-num">STEP 03 / 04</div>
+      <h3>相手と気持ちを教えてください</h3>
+      <p>相手の印象・好きなところ・印象に残っているエピソードなどを自由に入力します。うまくまとまらなくても大丈夫。断片的なメモ書きでも構いません。入力が少なければ短い手紙に、多ければ豊かな手紙になります。</p>
+      <div class="step-tip">「終電を逃した時に迎えに来てくれた」「いつも笑顔で迎えてくれる」——そんなひとことで十分です。</div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <img src="css/img/how-complete.png" alt="手紙が完成" class="step-img">
+    <div class="step-body">
+      <div class="step-num">STEP 05</div>
+      <h3>手紙が完成します</h3>
+      <p>AIがあなたの回答をもとに手紙を生成します。書体・色合い・縦書き/横書きを自由に選んで、自分らしい一通に仕上げてください。気に入らない部分はテキストを直接編集することもできます。</p>
+      <div class="step-tip">完成した手紙は画像（PNG）・PDF でダウンロード、またはLINEやSNSにそのままシェアできます。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Tips -->
+<section class="tips-section fade-in">
+  <div class="section-label">Tips</div>
+  <div class="tip-grid">
+    <div class="tip-card">
+      <span class="tip-icon">✍️</span>
+      <h3>入力は箇条書きでOK</h3>
+      <p>文章にならなくても大丈夫。思ったことをそのまま書いてください。</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🔄</span>
+      <h3>何度でも書き直せます</h3>
+      <p>「書き直す」ボタンで同じ入力から別の文章を生成できます。</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">✏️</span>
+      <h3>直接編集できます</h3>
+      <p>生成後にテキストを自由に編集。自分の言葉で整えてから届けてください。</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🔒</span>
+      <h3>入力内容は保存されません</h3>
+      <p>入力データはブラウザ上のみで処理。サーバーには保存されません。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section fade-in">
+  <h2>さあ、想いを届けよう。</h2>
+  <p>所要時間は約3分。<br>質問に答えていくだけで、あなたらしい手紙が完成します。</p>
+  <a href="index.html" class="btn-start">手紙を書き始める</a>
+</section>
+
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-logo">Cocoro Letter</div>
+  <div class="footer-links">
+    <a href="about.html">サービスについて</a>
+    <a href="howto.html">使い方</a>
+    <a href="#">プライバシーポリシー</a>
+  </div>
+  <p class="footer-copy">&copy; 2025 Cocoro Letter. All rights reserved.</p>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('siteHeader').classList.toggle('scrolled',window.scrollY>10);
+});
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
+},{threshold:0.15});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
