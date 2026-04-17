@@ -31,6 +31,30 @@
   "keywords": "手紙AI,メッセージ代筆,感謝手紙,誕生日手紙AI,母の日手紙,AI手紙生成"
 }
 </script>
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+  // TODO: Firebaseプロジェクト作成後にここを置き換える
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // グローバルに公開（モジュール外のJSから参照）
+  window._fbAuth = auth;
+  window._fbProvider = provider;
+  window._fbSignIn = () => signInWithPopup(auth, provider);
+  window._fbSignOut = () => signOut(auth);
+  window._fbOnAuthStateChanged = (cb) => onAuthStateChanged(auth, cb);
+  window._fbGetIdToken = () => auth.currentUser ? auth.currentUser.getIdToken(true) : Promise.resolve(null);
+</script>
 <link rel="icon" type="image/png" href="css/img/logo-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;700&family=Noto+Serif+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&family=Klee+One:wght@400;600&family=Yuji+Syuku&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -389,6 +413,48 @@ textarea.fi{min-height:70px;line-height:1.7}
 }
 .act-new:hover{border-color:var(--accent);color:var(--accent)}
 
+/* ===== AUTH ===== */
+.auth-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 0;margin-bottom:24px;
+  border-bottom:1px solid var(--border);
+  font-size:12px;color:var(--txt2);
+}
+.auth-bar img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.auth-bar .auth-name{flex:1;font-weight:500}
+.auth-bar .auth-count{color:var(--lbrown)}
+.btn-auth{
+  padding:8px 18px;font-family:'Zen Maru Gothic',sans-serif;font-size:12px;
+  border-radius:6px;cursor:pointer;transition:all .2s;font-weight:500;
+  border:1px solid var(--border);background:var(--card);color:var(--txt2)
+}
+.btn-auth:hover{border-color:var(--accent);color:var(--accent)}
+.btn-auth.primary{background:var(--brown);color:#fff;border-color:var(--brown)}
+.btn-auth.primary:hover{background:var(--accent);border-color:var(--accent)}
+.login-gate{
+  text-align:center;padding:48px 24px;
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  margin-bottom:32px;
+}
+.login-gate h2{font-family:'Zen Old Mincho',serif;font-size:18px;color:var(--brown);margin-bottom:10px}
+.login-gate p{font-size:13px;color:var(--txt2);line-height:1.8;margin-bottom:24px}
+.btn-google{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 28px;background:#fff;border:1px solid #dadce0;
+  border-radius:8px;font-size:14px;color:#3c4043;
+  font-family:'Zen Maru Gothic',sans-serif;font-weight:500;
+  cursor:pointer;transition:box-shadow .2s;
+}
+.btn-google:hover{box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.btn-google svg{flex-shrink:0}
+.limit-notice{
+  text-align:center;padding:40px 24px;
+  background:var(--warm);border:1px solid var(--peach);border-radius:16px;
+  margin-bottom:32px;
+}
+.limit-notice h2{font-family:'Zen Old Mincho',serif;font-size:17px;color:var(--brown);margin-bottom:10px}
+.limit-notice p{font-size:13px;color:var(--txt2);line-height:1.8}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -423,7 +489,9 @@ textarea.fi{min-height:70px;line-height:1.7}
     <nav class="header-nav">
       <a href="about.html">サービスについて</a>
       <a href="howto.html">使い方</a>
-      <a href="#" class="header-cta" onclick="startForm();return false">手紙を書く</a>
+      <span id="headerAuthArea">
+        <a href="#" class="header-cta" onclick="startForm();return false">手紙を書く</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -534,6 +602,22 @@ textarea.fi{min-height:70px;line-height:1.7}
     <h2>さあ、想いを届けよう。</h2>
     <p>所要時間は約3分。<br>質問に答えていくだけで、あなたらしい手紙が完成します。</p>
     <button class="btn-start" onclick="startForm()">手紙を書き始める</button>
+  </div>
+
+  <!-- ログインゲート（未ログイン時） -->
+  <div class="login-gate" id="loginGate" style="display:none">
+    <h2>Googleアカウントでログイン</h2>
+    <p>Cocoro Letterは無料でお使いいただけます。<br>ご利用にはGoogleアカウントでのログインが必要です。<br>1アカウントにつき<strong>3回</strong>まで無料でご利用いただけます。</p>
+    <button class="btn-google" onclick="doSignIn()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.703-1.569 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/></svg>
+      Googleでログイン
+    </button>
+  </div>
+
+  <!-- 上限到達通知 -->
+  <div class="limit-notice" id="limitNotice" style="display:none">
+    <h2>本日の無料利用上限に達しました</h2>
+    <p>1アカウントにつき3回まで無料でご利用いただけます。<br>ご利用いただきありがとうございました。</p>
   </div>
 
 </section>
@@ -686,11 +770,95 @@ window.addEventListener('scroll',()=>{
   document.getElementById('siteHeader').classList.toggle('scrolled',window.scrollY>10);
 });
 
+// ===== AUTH STATE =====
+const USER_LIMIT = 3; // 1アカウントあたりの無料利用回数
+let currentUser = null;
+let userUsageCount = 0;
+
+// Firebase初期化完了後に呼ばれる（モジュールからのコールバック）
+window.addEventListener('load', () => {
+  if (!window._fbOnAuthStateChanged) return;
+  window._fbOnAuthStateChanged(async (user) => {
+    currentUser = user;
+    if (user) {
+      userUsageCount = await fetchUsageCount();
+      renderAuthUI(user, userUsageCount);
+    } else {
+      renderAuthUI(null, 0);
+    }
+  });
+});
+
+function renderAuthUI(user, count) {
+  const area = $('headerAuthArea');
+  if (!user) {
+    area.innerHTML = `<a href="#" class="header-cta" onclick="startForm();return false">手紙を書く</a>`;
+    return;
+  }
+  const remaining = Math.max(0, USER_LIMIT - count);
+  area.innerHTML = `
+    <span style="font-size:11px;color:var(--txt3);margin-right:4px">残り${remaining}回</span>
+    ${user.photoURL ? `<img src="${user.photoURL}" width="24" height="24" style="border-radius:50%;vertical-align:middle;margin-right:6px">` : ''}
+    <button class="btn-auth" onclick="doSignOut()" style="font-size:11px;padding:5px 12px">ログアウト</button>
+    <a href="#" class="header-cta" onclick="startForm();return false">手紙を書く</a>`;
+}
+
+async function doSignIn() {
+  try {
+    await window._fbSignIn();
+  } catch(e) {
+    alert('ログインに失敗しました。もう一度お試しください。');
+  }
+}
+
+async function doSignOut() {
+  await window._fbSignOut();
+  currentUser = null;
+  userUsageCount = 0;
+}
+
+// GASからユーザーの使用回数を取得
+async function fetchUsageCount() {
+  try {
+    const token = await window._fbGetIdToken();
+    if (!token) return 0;
+    const r = await fetch(GAS_PROXY_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ action: 'getCount', idToken: token })
+    });
+    const d = await r.json();
+    return d.count || 0;
+  } catch(e) { return 0; }
+}
+
 const TD={'穏やか':['落ち着いた雰囲気','柔らかい物腰','聞き上手','争いを好まない','マイペース'],'明るい':['元気がいい','笑顔が多い','ポジティブ','場を和ませる','声が大きい'],'真面目':['コツコツ努力する','約束を守る','責任感が強い','几帳面','誠実'],'優しい':['困った人を放っておけない','さりげない気遣い','共感力が高い','人の話をよく聞く','怒らない'],'面白い':['ツッコミが上手い','独特な視点','場を盛り上げる','ユーモアがある','リアクションが大きい'],'頼りになる':['決断力がある','困った時に助けてくれる','知識が豊富','冷静に対処する','包容力がある'],'繊細':['感受性が豊か','細かいことに気づく','芸術的','傷つきやすい面も','心が深い'],'芯が強い':['自分の意見を持ってる','ブレない','粘り強い','信念がある','逆境に強い'],'自由':['束縛を嫌う','発想が独特','好奇心旺盛','行動力がある','型にはまらない'],'情熱的':['好きなことに一直線','熱い想い','全力投球','表現が豊か','一途']};
 let S={rel:'',sn:'',rn:'',traits:[],subTraits:[],pJoy:'',like:'',ep:'',feel:'',future:'',ans:{},personas:[]};
 let cStep=1,cFont='f-m',cTheme='warm',cDir='hz',letter='',letterPrompt='',isEditing=false;
 
-function startForm(){$('heroSec').style.display='none';$('formSec').classList.add('active');scroll0();}
+function startForm(){
+  // 未ログインの場合はログインゲートを表示
+  if (!currentUser) {
+    $('heroSec').style.display='none';
+    $('loginGate').style.display='block';
+    $('formSec').classList.remove('active');
+    scroll0();
+    return;
+  }
+  // 上限到達
+  if (userUsageCount >= USER_LIMIT) {
+    $('heroSec').style.display='none';
+    $('limitNotice').style.display='block';
+    $('formSec').classList.remove('active');
+    scroll0();
+    return;
+  }
+  $('loginGate').style.display='none';
+  $('limitNotice').style.display='none';
+  $('heroSec').style.display='none';
+  $('formSec').classList.add('active');
+  scroll0();
+}
 function $(id){return document.getElementById(id)}
 function scroll0(){window.scrollTo({top:0,behavior:'smooth'})}
 
@@ -861,17 +1029,25 @@ async function gen(){save();go(5);$('ldArea').style.display='block';$('ltArea').
 letterPrompt=buildPrompt();
 try{
   if(!GAS_PROXY_URL||GAS_PROXY_URL==='YOUR_GAS_DEPLOY_URL')throw new Error('proxy not configured');
+  // IDトークン取得（ログイン済みの場合）
+  const idToken = window._fbGetIdToken ? await window._fbGetIdToken() : null;
+  if(!idToken) throw new Error('ログインが必要です。ページを再読み込みしてログインしてください。');
   const r=await fetch(GAS_PROXY_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({prompt:letterPrompt})
+    body:JSON.stringify({action:'generate', prompt:letterPrompt, idToken})
   });
   const d=await r.json();
   if(d.error){
     if(d.error==='rate_limited')throw new Error('只今リクエストが集中しています。しばらく経ってから再度お試しください。');
+    if(d.error==='user_limit_reached')throw new Error('無料利用回数（3回）に達しました。ご利用ありがとうございました。');
     if(d.error==='prompt_too_long')throw new Error('入力内容が長すぎます。少し短くしてお試しください。');
+    if(d.error==='auth_required')throw new Error('ログインが必要です。ページを再読み込みしてください。');
     throw new Error('手紙の生成に失敗しました。時間をおいて再度お試しください。');
   }
+  // 使用回数をローカルに反映
+  userUsageCount = d.usageCount || userUsageCount + 1;
+  renderAuthUI(currentUser, userUsageCount);
   letter=d.text;
 }catch(e){
   $('ldArea').style.display='none';
