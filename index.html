@@ -318,7 +318,7 @@ textarea.fi{min-height:70px;line-height:1.7}
 .lc{margin-bottom:16px}
 .lp{border-radius:14px;padding:44px 36px;position:relative;box-shadow:0 4px 24px var(--shadow2);transition:all .3s}
 .lp::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
-.lp::after{content:'';position:absolute;top:10px;left:10px;right:10px;bottom:10px;border:1px solid;border-radius:6px;pointer-events:none;opacity:.15}
+.lp::after{content:none}
 .lp[data-t="warm"]{background:linear-gradient(180deg,#FFFAF5,#FFF5ED)}.lp[data-t="warm"]::before{background:linear-gradient(90deg,#E8927C,#D4A574)}.lp[data-t="warm"]::after{border-color:#E8927C}
 .lp[data-t="sakura"]{background:linear-gradient(180deg,#FFF5F5,#FFF0F0)}.lp[data-t="sakura"]::before{background:linear-gradient(90deg,#D4849A,#E8B4C8)}.lp[data-t="sakura"]::after{border-color:#D4849A}
 .lp[data-t="forest"]{background:linear-gradient(180deg,#F5F9F5,#F0F5F0)}.lp[data-t="forest"]::before{background:linear-gradient(90deg,#7BA17C,#A4C4A5)}.lp[data-t="forest"]::after{border-color:#7BA17C}
@@ -519,7 +519,7 @@ textarea.fi{min-height:70px;line-height:1.7}
 
 <!-- ===== FORM ===== -->
 <div class="form-s" id="formSec">
-<div class="prog"><span class="prog-l">1</span><div class="prog-s active" id="p1"></div><div class="prog-s" id="p2"></div><div class="prog-s" id="p3"></div><div class="prog-s" id="p4"></div><div class="prog-s" id="p5"></div><span class="prog-l">✉️</span></div>
+<div class="prog"><span class="prog-l">1</span><div class="prog-s active" id="p1"></div><div class="prog-s" id="p2"></div><div class="prog-s" id="p3"></div><div class="prog-s" id="p4"></div><div class="prog-s" id="p5"></div><span class="prog-l">5</span></div>
 
 <!-- S1: Relationship — UPDATED: emoji → images -->
 <div class="step active" id="s1">
@@ -581,23 +581,23 @@ textarea.fi{min-height:70px;line-height:1.7}
 <div class="step" id="s3">
 <div class="sh"><div class="sn">STEP 03</div><h2 class="st">相手はどんな人ですか？</h2><p class="sd">タグを選ぶと詳しい印象も選べます</p></div>
 <div class="fg"><label class="fl">その人の印象に近いものを選んでください</label><div class="tags" id="mTags"></div><div class="sub-c" id="subA"><div class="sub-l" id="subL"></div><div class="subs" id="subT"></div></div></div>
-<div class="fg"><label class="fl">どんな時にその人は嬉しそう？<span class="h">例：手料理を「おいしい！」って食べてもらえた時</span></label><textarea class="fi deep" id="pJoy" data-d="dj" placeholder="その人の笑顔を思い出して"></textarea><div class="dp" id="dj"><strong>💡</strong> その時の表情や仕草で印象に残っていることは？</div></div>
+<div class="fg"><label class="fl">どんな時にその人は嬉しそう？<span class="h">例：手料理を「おいしい！」って食べてもらえた時</span></label><textarea class="fi deep" id="pJoy" data-d="dj" placeholder="その人の笑顔を思い出して"></textarea><div class="dp" id="dj">その時の表情や仕草で印象に残っていることは？</div></div>
 <div class="bg"><button class="btn btn-b" onclick="go(2)">戻る</button><button class="btn btn-n" onclick="go(4)">次へ</button></div>
 </div>
 
 <!-- S4: Feelings -->
 <div class="step" id="s4">
 <div class="sh"><div class="sn">STEP 04</div><h2 class="st">あなたの気持ちを聞かせてください</h2><p class="sd">うまく書けなくて大丈夫。あなたの言葉がそのまま温度に。</p></div>
-<div class="fg"><label class="fl">好きなところ・尊敬しているところ<span class="h">具体的であるほど届きます</span></label><textarea class="fi deep" id="like" data-d="dl" placeholder="例：疲れてる日でも「おかえり」って笑ってくれる"></textarea><div class="dp" id="dl"><strong>💡</strong> それを感じた瞬間は？あなたはどんな気持ちでしたか？</div></div>
-<div class="fg"><label class="fl">印象に残っているエピソード<span class="h">笑ったこと、助けてもらったこと、何気ない日常でも</span></label><textarea class="fi deep" id="ep" data-d="de" placeholder="例：終電逃した時に迎えに来てくれたこと"></textarea><div class="dp" id="de"><strong>💡</strong> その時の天気、匂い、音…覚えていることは？</div></div>
-<div class="fg"><label class="fl">今、一番伝えたい気持ち</label><textarea class="fi deep" id="feel" data-d="df" placeholder="例：いつも隣にいてくれることがどれだけありがたいか"></textarea><div class="dp" id="df"><strong>💡</strong> なぜ今、伝えたいと思いましたか？</div></div>
+<div class="fg"><label class="fl">好きなところ・尊敬しているところ<span class="h">具体的であるほど届きます</span></label><textarea class="fi deep" id="like" data-d="dl" placeholder="例：疲れてる日でも「おかえり」って笑ってくれる"></textarea><div class="dp" id="dl">それを感じた瞬間は？あなたはどんな気持ちでしたか？</div></div>
+<div class="fg"><label class="fl">印象に残っているエピソード<span class="h">笑ったこと、助けてもらったこと、何気ない日常でも</span></label><textarea class="fi deep" id="ep" data-d="de" placeholder="例：終電逃した時に迎えに来てくれたこと"></textarea><div class="dp" id="de">その時の天気、匂い、音…覚えていることは？</div></div>
+<div class="fg"><label class="fl">今、一番伝えたい気持ち</label><textarea class="fi deep" id="feel" data-d="df" placeholder="例：いつも隣にいてくれることがどれだけありがたいか"></textarea><div class="dp" id="df">なぜ今、伝えたいと思いましたか？</div></div>
 <div class="fg"><label class="fl">これからの二人について<span class="h">感謝だけでなく「こうしていきたい」という想いも</span></label><textarea class="fi" id="future" placeholder="例：もっと自分から「ありがとう」を言えるようになりたい"></textarea></div>
-<div class="bg"><button class="btn btn-b" onclick="go(3)">戻る</button><button class="btn btn-g" onclick="gen()">手紙を届ける ✉️</button></div>
+<div class="bg"><button class="btn btn-b" onclick="go(3)">戻る</button><button class="btn btn-g" onclick="gen()">手紙を届ける</button></div>
 </div>
 
 <!-- S5: Result -->
 <div class="step" id="s5">
-<div id="ldArea" class="ld"><div class="ld-q">🖊️</div><p class="ld-t">あなたの気持ちを、あなたらしい言葉に<span class="ld-d"></span></p></div>
+<div id="ldArea" class="ld"><p class="ld-t">あなたの気持ちを、あなたらしい言葉に<span class="ld-d"></span></p></div>
 
 <div id="ltArea" style="display:none">
 <div class="result-top">
@@ -616,18 +616,18 @@ textarea.fi{min-height:70px;line-height:1.7}
 <div class="lt f-m" id="lText"></div>
 </div>
 </div>
-<div class="edit-hint" id="editHint">✏️ テキストを直接タップして編集できます</div>
+<div class="edit-hint" id="editHint">テキストを直接タップして編集できます</div>
 
 <!-- Actions -->
 <div class="actions">
 <div class="actions-grid">
-  <button class="act-btn act-edit" onclick="toggleEdit()">✏️ テキストを編集</button>
+  <button class="act-btn act-edit" onclick="toggleEdit()">テキストを編集</button>
   <button class="act-btn act-primary" onclick="shareLetter()">LINEやSNSに送る</button>
   <div class="dl-dd">
     <button class="act-btn act-secondary" onclick="tgDL()">ダウンロード</button>
     <div class="dl-menu" id="dlMenu">
-      <button class="dl-opt" onclick="dlImg()">🖼️ 画像（PNG）<span>LINE・SNSで送りやすい</span></button>
-      <button class="dl-opt" onclick="dlPDF()">📄 PDF<span>印刷して渡せる</span></button>
+      <button class="dl-opt" onclick="dlImg()">画像（PNG）<span>LINE・SNSで送りやすい</span></button>
+      <button class="dl-opt" onclick="dlPDF()">PDF<span>印刷して渡せる</span></button>
     </div>
   </div>
   <button class="act-btn act-secondary" onclick="gen()">書き直す</button>
@@ -635,7 +635,7 @@ textarea.fi{min-height:70px;line-height:1.7}
 </div>
 
 <!-- Warm feedback -->
-<div class="wf" id="wf"><span class="wf-i">🌱</span><div class="wf-t" id="wfTxt"></div></div>
+<div class="wf" id="wf"><div class="wf-t" id="wfTxt"></div></div>
 
 <button class="act-new" onclick="reset()">新しい手紙を書く</button>
 
@@ -719,88 +719,112 @@ function setF(p){document.querySelectorAll('#lPaper').forEach(()=>{});const pill
 function setT(d){document.querySelectorAll('.cdot').forEach(x=>x.classList.remove('act'));d.classList.add('act');cTheme=d.dataset.t;$('lPaper').dataset.t=cTheme;}
 
 // Edit mode
-function toggleEdit(){const lt=$('lText');if(!isEditing){lt.contentEditable='true';lt.focus();$('editHint').classList.add('vis');document.querySelector('.act-edit').textContent='✏️ 編集を完了';isEditing=true;}else{lt.contentEditable='false';$('editHint').classList.remove('vis');letter=lt.textContent;document.querySelector('.act-edit').textContent='✏️ テキストを編集';isEditing=false;}}
+function toggleEdit(){const lt=$('lText');if(!isEditing){lt.contentEditable='true';lt.focus();$('editHint').classList.add('vis');document.querySelector('.act-edit').textContent='編集を完了';isEditing=true;}else{lt.contentEditable='false';$('editHint').classList.remove('vis');letter=lt.textContent;document.querySelector('.act-edit').textContent='テキストを編集';isEditing=false;}}
 
 // Share
-function shareLetter(){if(navigator.share){navigator.share({title:'Cocoro Letter',text:letter}).catch(()=>{});}else{navigator.clipboard.writeText(letter).then(()=>{const b=document.querySelector('.act-primary');b.textContent='コピーしました ✓';setTimeout(()=>b.textContent='LINEやSNSに送る',2000);});}}
+function shareLetter(){if(navigator.share){navigator.share({title:'Cocoro Letter',text:letter}).catch(()=>{});}else{navigator.clipboard.writeText(letter).then(()=>{const b=document.querySelector('.act-primary');b.textContent='コピーしました';setTimeout(()=>b.textContent='LINEやSNSに送る',2000);});}}
 
 // Build prompt
 function buildPrompt(){const a=S.ans;
+
+// 送り手の文体タイプを決定
 let sType='bukiyou';
-if(a.q2a==='direct')sType='straight';else if(a.q2a==='humor')sType='humor';else if(a.q2a==='text')sType='writer';
-if(a.q1==='no')sType='bukiyou';if(a.q1==='sometimes'&&(a.q2b==='shy'||a.q2b==='words'))sType='bukiyou';
+if(a.q1==='yes'){
+  if(a.q2a==='direct')sType='straight';
+  else if(a.q2a==='humor')sType='humor';
+  else if(a.q2a==='text')sType='writer';
+  else sType='straight';
+}else if(a.q1==='sometimes'){
+  if(a.q2b==='shy'||a.q2b==='words')sType='bukiyou';
+  else if(a.q2b==='timing')sType='casual';
+  else sType='bukiyou';
+}// q1==='no' → bukiyou
+
+// 送り手パーソナリティ文を生成（キャラクターを文体調整に活用）
+const pm={warm:'温かい',cool:'クール',fun:'明るい',reliable:'しっかり者',shy:'シャイ',passionate:'情熱的',independent:'マイペース',logical:'論理的'};
+const personas=S.personas.map(p=>pm[p]).filter(Boolean);
+let senderProfile='';
+if(personas.length){
+  // パーソナリティを文体修正ヒントに変換
+  const hasLogical=S.personas.includes('logical');
+  const hasCool=S.personas.includes('cool');
+  const hasFun=S.personas.includes('fun');
+  const hasPassionate=S.personas.includes('passionate');
+  let mod='';
+  if(hasCool&&sType==='bukiyou')mod='感情を直接出さない。でも行動やエピソードに滲ませる。';
+  else if(hasLogical)mod='観察的な視点を一行混ぜる。感情より事実で語る部分がある。';
+  else if(hasFun&&sType!=='humor')mod='重くなりすぎない。どこかに軽さが残る。';
+  else if(hasPassionate)mod='熱量は出していい。でも押し付けにならないよう一歩引く。';
+  senderProfile=`- 周囲からの印象：${personas.join('・')}\n`+(mod?`- この印象を踏まえた文体調整：${mod}\n`:'');
+}
 
 let tone='自然体';if(a.q4==='serious')tone='真剣';else if(a.q4==='playful')tone='照れ隠し';else if(a.q4==='surprise')tone='サプライズ';
 
-const pm={warm:'温かい',cool:'クール',fun:'明るい',reliable:'しっかり者',shy:'シャイ',passionate:'情熱的',independent:'マイペース',logical:'論理的'};
-const personas=S.personas.map(p=>pm[p]).join('・');
-const allTraits=[...S.traits];if(S.subTraits.length)allTraits.push('（'+S.subTraits.join('、')+'）');
+// 相手プロファイルを文として組み立てる
+const allTraits=[...S.traits];
+const subDetail=S.subTraits.length?'（特に：'+S.subTraits.join('、')+'）':'';
+let recipientProfile='';
+if(allTraits.length){
+  recipientProfile=`- 印象：${allTraits.join('・')}${subDetail}\n`;
+  // 相手特性を「どう書けば届くか」に変換
+  const isQuiet=S.traits.includes('穏やか')||S.traits.includes('繊細');
+  const isFun=S.traits.includes('面白い');
+  const isSolid=S.traits.includes('芯が強い')||S.traits.includes('頼りになる');
+  if(isQuiet)recipientProfile+='- この相手への届け方：静かに、でも確かに。大げさにしない方が刺さる。\n';
+  else if(isFun)recipientProfile+='- この相手への届け方：笑いを入れても通じる相手。でもどこかで本音を見せる。\n';
+  else if(isSolid)recipientProfile+='- この相手への届け方：真剣に書いた方が届く。軽くなりすぎない。\n';
+}
+if(S.pJoy)recipientProfile+=`- 嬉しい瞬間：${S.pJoy}（この感覚が伝わるエピソードや言葉を手紙に活かす）\n`;
 
 const rules={bukiyou:`【不器用タイプ】文は短め。「…」「、」の間が多い。言いかけてやめる表現。感情を直接言わずエピソードで語る。不格好でいい。照れが滲む。例：「うまく言えないけど…ありがとう。って、これ書くのにだいぶ時間かかった。」`,
 straight:`【ストレートタイプ】飾らない。シンプルで力強い。回りくどくない。短い文で核心を突く。例：「好きだよ。理由なんていらない。いてくれて助かってる。」`,
 humor:`【ユーモアタイプ】軽い語り口で始める。ボケやツッコミを挟む。でも途中か最後でふっと真剣に。笑いの中に本音が一瞬見える。例：「お前の料理マジでうまいんだわ。…冗談抜きで。」`,
-writer:`【文章タイプ】整うが上手すぎにしない。内省的。語りかけの温度がある。例：「こうして書いてみると、普段どれだけ言葉にできてなかったか気づく。」`};
+writer:`【文章タイプ】整うが上手すぎにしない。内省的。語りかけの温度がある。例：「こうして書いてみると、普段どれだけ言葉にできてなかったか気づく。」`,
+casual:`【タイミング待ちタイプ】普段は伝えたいのに機会がない。日常の延長で自然に入る。「手紙」っぽくなりすぎない。友人への近況報告くらいの空気感から始まり、途中でふっと本音が出る。`};
 
 const tones={真剣:'覚悟が見える。ふざけない。でも堅すぎない。感情の重みをそのまま乗せる。',自然体:'普段の会話の延長。手紙っぽくなりすぎない。話しかけてるような文体。',照れ隠し:'軽く入って中盤で真剣に、最後にまた照れる。本音と照れが交互。読む側は照れ隠しの向こうに本気を感じる。',サプライズ:'普段の印象とのギャップを最大化。いつもと違う一面。「この人がこんなこと書くの」が価値。'};
 
-const tn={bukiyou:'不器用タイプ',straight:'ストレートタイプ',humor:'ユーモアタイプ',writer:'文章タイプ'};
+const tn={bukiyou:'不器用タイプ',straight:'ストレートタイプ',humor:'ユーモアタイプ',writer:'文章タイプ',casual:'タイミング待ちタイプ'};
 
-let block='';if(a.q2b){const bm={shy:'照れくさい',words:'言葉にすると薄くなる',timing:'きっかけがない',distance:'関係に距離がある'};block=bm[a.q2b]||'';}
+let block='';if(a.q2b){const bm={shy:'照れくさくて言えない',words:'言葉にすると薄くなる気がする',timing:'きっかけがない',distance:'関係に距離を感じている'};block=bm[a.q2b]||'';}
+
+// 入力の密度を確認（空が多ければ短い手紙を指示）
+const filledCount=[S.like,S.ep,S.feel,S.future,S.pJoy].filter(x=>x&&x.length>3).length;
+const lengthGuide=filledCount<=1?'200文字以内の短い手紙':filledCount<=3?'250〜450文字':'350〜600文字';
 
 return `## 役割
-あなたは「手紙の代筆屋」。美しい手紙を書くのではなく「この人がもし言葉にできたなら、こう書いたであろう手紙」を書く。
-読んだ相手が「この人が書いた」と感じることが最優先。AIが書いた感（整いすぎ・美しすぎ）は最大の失敗。
+あなたは手紙の代筆屋。「美しい手紙」ではなく「この人がもし言葉にできたなら、こう書いたであろう手紙」を書く。
+読んだ相手が「この人が書いた」と感じることが最優先。AIっぽい整いすぎた文章は失敗。
 
-## 原則
-1. 送り手の人間性・不器用さ・クセがそのまま文体に出ること
-2. 文学的な美しさは目的ではない。人間らしさが目的
-3. 入力を機械的に順番に消化しない。取捨選択し自然に溶け込ませる
-4. 未記入を無理に補完しない。少なければ短くていい
-5. 毎回同じ構成にしない。開始も順序も自由
-
+## 送り手プロファイル
+- 名前：${S.sn}
+- 普段の状況：${a.q1==='yes'?'気持ちを伝えられている方':a.q1==='sometimes'?'伝えたいがなかなか言えない':'ほとんど伝えられていない'}
+${block?'- 伝えられない理由：'+block+'\n':''}${senderProfile}
 ## 文体：${tn[sType]}
 ${rules[sType]}
 
 ## トーン：${tone}
 ${tones[tone]}
 
-## 禁止事項
-- ポエティックな修辞（「太陽のような存在」等）
-- 「そして」「また」「さらに」の連結
-- 「本当に」「とても」「すごく」の乱用
-- 「〜していきましょう」の先生口調
-- 入力を上から順に消化する構成
-- 全員に同じパターン
-- 未記入情報の創作
-
-## 送り手
-- 名前：${S.sn}
-- 周囲の印象：${personas||'未選択'}
-- 普段：${a.q1==='yes'?'伝えられている':a.q1==='sometimes'?'なかなか伝えられない':'ほとんど伝えられない'}
-${block?'- 理由：'+block:''}
-
-## 相手
+## 相手プロファイル
 - 名前：${S.rn}
 - 関係：${S.rel}
-- 印象：${allTraits.join('、')||'未選択'}
-- 嬉しい瞬間：${S.pJoy||'未記入'}
-
-## 気持ち
-- 好きなところ：${S.like||'未記入'}
-- エピソード：${S.ep||'未記入'}
-- 伝えたい気持ち：${S.feel||'未記入'}
+${recipientProfile}
+## 手紙に込める内容
+- 好きなところ・尊敬：${S.like||'未記入'}
+- 印象的なエピソード：${S.ep||'未記入'}
+- 今伝えたい気持ち：${S.feel||'未記入'}
 - これから：${S.future||'未記入'}
 
-## 出力
-- 手紙形式（呼びかけ→本文→締め→「${S.sn}より」）
-- 300〜600文字（少なければ短く）
-- 本文のみ。説明不要
+## 出力ルール
+- 形式：呼びかけ → 本文 → 締め → 「${S.sn}より」
+- 文字数：${lengthGuide}（未記入が多ければ短く、無理に埋めない）
+- 本文のみ出力。前置き・説明・コメント不要
+- 入力を上から順に消化しない。自然な流れで取捨選択する
+- 未記入項目を推測や創作で補わない
 
-## チェック
-- ${S.rn}は「${S.sn}が書いた」と感じるか？
-- 整いすぎていないか？
-- 機械的に消化していないか？
-- 読んで嬉しくなるか？`;}
+## 自己確認
+出力前に確認：${S.rn}が読んで「${S.sn}が書いた」と感じるか？整いすぎていないか？`;}
 
 // GASプロキシURL — デプロイ後にここを書き換える
 const GAS_PROXY_URL = 'https://script.google.com/macros/s/AKfycbwFquDPIHnyXfFmpn026tJozMJ4esm_v_bftj-wBbBb-uExet1Fuf5B-v2UxAfdv6UD/exec';
