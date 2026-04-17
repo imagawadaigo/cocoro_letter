@@ -173,8 +173,8 @@ function verifyIdToken(idToken) {
     );
     if (res.getResponseCode() !== 200) return null;
     const payload = JSON.parse(res.getContentText());
-    // audienceがFirebaseプロジェクトのものか確認（YOUR_PROJECT_IDは設定後に置き換え）
-    // if (payload.aud !== 'YOUR_PROJECT_ID') return null;
+    // audienceがFirebaseプロジェクトのものか確認
+    if (payload.aud !== 'cocoro-letter-76e1c') return null;
     if (!payload.email || !payload.email_verified) return null;
     return payload.email;
   } catch(e) {
