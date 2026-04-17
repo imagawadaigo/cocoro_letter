@@ -740,7 +740,13 @@ function setF(p){document.querySelectorAll('#lPaper').forEach(()=>{});const pill
 function setT(d){document.querySelectorAll('.cdot').forEach(x=>x.classList.remove('act'));d.classList.add('act');cTheme=d.dataset.t;$('lPaper').dataset.t=cTheme;}
 
 // Edit mode
-function toggleEdit(){const lt=$('lText');if(!isEditing){lt.contentEditable='true';lt.focus();$('editHint').classList.add('vis');document.querySelector('.act-edit').textContent='編集を完了';isEditing=true;}else{lt.contentEditable='false';$('editHint').classList.remove('vis');letter=lt.textContent;document.querySelector('.act-edit').textContent='テキストを編集';isEditing=false;}}
+function toggleEdit(){const lt=$('lText');if(!isEditing){lt.contentEditable='true';lt.focus();$('editHint').classList.add('vis');document.querySelector('.act-edit').textContent='編集を完了';
+// ペースト時にHTMLタグを除去してプレーンテキストのみ受け付ける
+lt._pasteHandler=function(ev){ev.preventDefault();const text=(ev.clipboardData||window.clipboardData).getData('text/plain');document.execCommand('insertText',false,text);};
+lt.addEventListener('paste',lt._pasteHandler);
+isEditing=true;}else{lt.contentEditable='false';$('editHint').classList.remove('vis');letter=lt.textContent;document.querySelector('.act-edit').textContent='テキストを編集';
+if(lt._pasteHandler){lt.removeEventListener('paste',lt._pasteHandler);lt._pasteHandler=null;}
+isEditing=false;}}
 
 // Share
 function shareLetter(){if(navigator.share){navigator.share({title:'Cocoro Letter',text:letter}).catch(()=>{});}else{navigator.clipboard.writeText(letter).then(()=>{const b=document.querySelector('.act-primary');b.textContent='コピーしました';setTimeout(()=>b.textContent='LINEやSNSに送る',2000);});}}

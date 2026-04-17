@@ -32,6 +32,17 @@ const INJECTION_PATTERNS = [
   /<\|im_start\|>/i,
   /new\s+instructions\s*:/i,
   /override\s+(the\s+)?instructions/i,
+  // Unicode正規化後の迂回攻撃
+  /\u0069\u0067\u006E\u006F\u0072\u0065/i, // "ignore" のUnicodeエスケープ
+  // ロールプレイ・脱獄系
+  /pretend\s+(you\s+are|to\s+be)/i,
+  /roleplay\s+as/i,
+  /jailbreak/i,
+  /DAN\s+(mode|prompt)/i,
+  // 出力指示書き換え
+  /respond\s+(only|always)\s+(in|as|with)/i,
+  /your\s+(new\s+)?role\s+is/i,
+  /from\s+now\s+on/i,
 ];
 
 function doPost(e) {
@@ -162,8 +173,10 @@ function checkRateLimit() {
     props.setProperty(countKey, String(count));
   }
 
-  // 日次制限
-  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  // 日次制限（JST基準）
+  const jstOffset = 9 * 60 * 60 * 1000;
+  const jstNow = new Date(Date.now() + jstOffset);
+  const today = jstNow.toISOString().slice(0, 10); // YYYY-MM-DD (JST)
   const dailyKey = 'rl_daily_' + today;
   let dailyCount = parseInt(props.getProperty(dailyKey) || '0', 10);
   dailyCount += 1;
@@ -172,8 +185,8 @@ function checkRateLimit() {
   }
   props.setProperty(dailyKey, String(dailyCount));
 
-  // 前日のキーを削除（プロパティ上限対策）
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  // 前日のキーを削除（プロパティ上限対策、JST基準）
+  const yesterday = new Date(Date.now() + jstOffset - 86400000).toISOString().slice(0, 10);
   props.deleteProperty('rl_daily_' + yesterday);
 
   return { ok: true };
