@@ -1,5 +1,5 @@
 /**
- * Cocoro Letter — Anthropic API Proxy
+ * Cocoro Letter — Anthropic API Proxy (auto-deploy test)
  *
  * 設定手順:
  * 1. GASエディタ → 歯車アイコン「プロジェクトの設定」
