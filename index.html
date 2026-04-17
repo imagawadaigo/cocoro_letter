@@ -861,9 +861,18 @@ try{
     body:JSON.stringify({prompt:letterPrompt})
   });
   const d=await r.json();
-  if(d.error)throw new Error(d.error);
+  if(d.error){
+    if(d.error==='rate_limited')throw new Error('只今リクエストが集中しています。しばらく経ってから再度お試しください。');
+    if(d.error==='prompt_too_long')throw new Error('入力内容が長すぎます。少し短くしてお試しください。');
+    throw new Error('手紙の生成に失敗しました。時間をおいて再度お試しください。');
+  }
   letter=d.text;
-}catch(e){letter=sampleLetter();}
+}catch(e){
+  $('ldArea').style.display='none';
+  $('ldArea').innerHTML='<p style="color:var(--accent);font-size:13px;line-height:2;text-align:center;padding:20px 0">'+(e.message||'エラーが発生しました。時間をおいて再度お試しください。')+'<br><button class="btn btn-b" style="margin-top:16px" onclick="go(4)">戻る</button></p>';
+  $('ldArea').style.display='block';
+  return;
+}
 $('lText').textContent=letter;showWF();
 $('ldArea').style.display='none';$('ltArea').style.display='block';$('ltArea').style.animation='fadeUp .6s';}
 
