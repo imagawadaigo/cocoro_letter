@@ -786,6 +786,7 @@ window.addEventListener('load', () => {
     if (user) {
       userUsageCount = await fetchUsageCount();
       renderAuthUI(user, userUsageCount);
+      startForm();
     } else {
       renderAuthUI(null, 0);
     }
