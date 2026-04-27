@@ -67,18 +67,21 @@ function doPost(e) {
 
     // --- 手紙生成 ---
     if (action === 'generate') {
-      // 1. Firebase IDトークン検証
-      const email = verifyIdToken(body.idToken);
-      if (!email) {
-        output.setContent(JSON.stringify({ error: 'auth_required' }));
-        return output;
-      }
-
-      // 2. ユーザー別利用回数チェック
-      const userCount = getUserCount(email);
-      if (userCount >= USER_LIMIT) {
-        output.setContent(JSON.stringify({ error: 'user_limit_reached', usageCount: userCount }));
-        return output;
+      // 1. Firebase IDトークン検証（任意：なければゲストとして扱う）
+      const isGuest = !body.idToken;
+      let email = null;
+      if (!isGuest) {
+        email = verifyIdToken(body.idToken);
+        if (!email) {
+          output.setContent(JSON.stringify({ error: 'auth_required' }));
+          return output;
+        }
+        // 2. ユーザー別利用回数チェック（ログイン済みのみ）
+        const userCount = getUserCount(email);
+        if (userCount >= USER_LIMIT) {
+          output.setContent(JSON.stringify({ error: 'user_limit_reached', usageCount: userCount }));
+          return output;
+        }
       }
 
       // 3. グローバルレート制限
@@ -146,9 +149,13 @@ function doPost(e) {
         return output;
       }
 
-      // 6. 成功 → ユーザーカウントをインクリメント
-      const newCount = incrementUserCount(email);
-      output.setContent(JSON.stringify({ text: data.content[0].text, usageCount: newCount }));
+      // 6. 成功 → ログイン済みのみカウントをインクリメント
+      if (isGuest) {
+        output.setContent(JSON.stringify({ text: data.content[0].text, usageCount: 0 }));
+      } else {
+        const newCount = incrementUserCount(email);
+        output.setContent(JSON.stringify({ text: data.content[0].text, usageCount: newCount }));
+      }
       return output;
     }
 
