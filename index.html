@@ -810,7 +810,16 @@ async function doSignIn() {
   try {
     await window._fbSignIn();
   } catch(e) {
-    alert('ログインに失敗しました。もう一度お試しください。');
+    console.error('Firebase sign-in error:', e.code, e.message);
+    if (e.code === 'auth/popup-blocked') {
+      alert('ポップアップがブロックされました。ブラウザのポップアップ許可設定を確認してください。');
+    } else if (e.code === 'auth/unauthorized-domain') {
+      alert('このドメインはログインが許可されていません。管理者にお問い合わせください。');
+    } else if (e.code === 'auth/popup-closed-by-user') {
+      // ユーザーが自分で閉じた場合は何もしない
+    } else {
+      alert('ログインに失敗しました。(' + (e.code || 'unknown') + ')');
+    }
   }
 }
 
